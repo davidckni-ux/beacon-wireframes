@@ -1,0 +1,1194 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beacon Website Wireframes</title>
+<style>
+  :root {
+    --ground: #F6F5F1;
+    --surface: #FFFFFF;
+    --ink: #23272B;
+    --muted: #6E7378;
+    --wire: #9AA0A6;
+    --wire-soft: #E4E2DC;
+    --accent: #B36F14;
+    --accent-ink: #FFFFFF;
+    --link: #2C5379;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #16181B;
+      --surface: #1E2226;
+      --ink: #E8E6E1;
+      --muted: #9BA1A8;
+      --wire: #6E747B;
+      --wire-soft: #2C3138;
+      --accent: #E09B3B;
+      --accent-ink: #1A1206;
+      --link: #85AED6;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #F6F5F1; --surface: #FFFFFF; --ink: #23272B; --muted: #6E7378;
+    --wire: #9AA0A6; --wire-soft: #E4E2DC; --accent: #B36F14; --accent-ink: #FFFFFF; --link: #2C5379;
+  }
+  :root[data-theme="dark"] {
+    --ground: #16181B; --surface: #1E2226; --ink: #E8E6E1; --muted: #9BA1A8;
+    --wire: #6E747B; --wire-soft: #2C3138; --accent: #E09B3B; --accent-ink: #1A1206; --link: #85AED6;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Avenir Next", "Seravek", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .mono, .lbl, .pill, .pchip, .dot, .urlbar, .tag-new, .yn {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  .app { display: flex; min-height: 100vh; }
+
+  /* ---------- rail ---------- */
+  .rail {
+    width: 232px; flex: none;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    border-right: 1.5px solid var(--wire-soft);
+    padding: 22px 14px 30px;
+    background: var(--ground);
+  }
+  .rail .brand { padding: 0 10px 4px; }
+  .rail .brand b { font-size: 15px; letter-spacing: 0.02em; }
+  .rail .brand .sub {
+    font-size: 11px; color: var(--muted); display: block; margin-top: 2px;
+  }
+  .railgroup {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); padding: 18px 10px 6px;
+  }
+  .rail nav button {
+    display: flex; align-items: baseline; gap: 8px; width: 100%;
+    background: none; border: none; border-radius: 7px;
+    padding: 7px 10px; margin: 1px 0;
+    font: inherit; font-size: 13.5px; color: var(--ink);
+    text-align: left; cursor: pointer;
+  }
+  .rail nav button .n {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10.5px; color: var(--muted); width: 14px; flex: none;
+  }
+  .rail nav button:hover { background: var(--wire-soft); }
+  .rail nav button[aria-current="true"] {
+    background: var(--ink); color: var(--surface);
+  }
+  .rail nav button[aria-current="true"] .n { color: var(--surface); opacity: 0.65; }
+  button:focus-visible, .dot:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+
+  /* ---------- main ---------- */
+  main { flex: 1; min-width: 0; padding: 30px clamp(16px, 4vw, 52px) 80px; }
+  .screen { display: none; max-width: 1040px; margin: 0 auto; }
+  .screen.active { display: block; }
+  .screen > header h1 {
+    font-size: 23px; margin: 0 0 4px; letter-spacing: -0.01em; text-wrap: balance;
+  }
+  .screen > header .purpose {
+    color: var(--muted); font-size: 14px; margin: 0 0 20px; max-width: 68ch;
+  }
+
+  /* ---------- browser frame ---------- */
+  .frame {
+    border: 1.5px solid var(--wire); border-radius: 12px;
+    background: var(--surface); overflow: hidden;
+    margin-bottom: 26px;
+  }
+  .chrome {
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 14px; border-bottom: 1.5px solid var(--wire-soft);
+  }
+  .chrome i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--wire); flex: none; }
+  .urlbar {
+    flex: 1; margin-left: 8px; border: 1px solid var(--wire-soft); border-radius: 99px;
+    padding: 3px 14px; font-size: 11px; color: var(--muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .canvas { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+  /* ---------- wireframe primitives ---------- */
+  .box {
+    border: 1.5px solid var(--wire); border-radius: 7px;
+    padding: 13px 15px; background: var(--surface);
+    position: relative; min-width: 0;
+  }
+  .img {
+    border: 1.5px solid var(--wire); border-radius: 7px;
+    background:
+      linear-gradient(to top right,    transparent calc(50% - 0.7px), var(--wire) calc(50% - 0.7px), var(--wire) calc(50% + 0.7px), transparent calc(50% + 0.7px)),
+      linear-gradient(to bottom right, transparent calc(50% - 0.7px), var(--wire) calc(50% - 0.7px), var(--wire) calc(50% + 0.7px), transparent calc(50% + 0.7px));
+    min-height: 64px; position: relative;
+  }
+  .img .cap {
+    position: absolute; left: 8px; bottom: 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10px; color: var(--muted); background: var(--surface);
+    padding: 0 5px; border-radius: 4px;
+  }
+  .lbl {
+    font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); display: block; margin-bottom: 7px;
+  }
+  .tl { height: 8px; border-radius: 4px; background: var(--wire-soft); margin: 7px 0; }
+  .w25 { width: 25%; } .w40 { width: 40%; } .w55 { width: 55%; } .w70 { width: 70%; } .w85 { width: 85%; }
+  .btn {
+    display: inline-block; padding: 7px 16px; border-radius: 7px;
+    border: 1.5px solid var(--ink); font-size: 13px; font-weight: 600;
+    background: var(--surface); color: var(--ink); white-space: nowrap;
+  }
+  .btn.primary { background: var(--ink); color: var(--surface); }
+  .btn.sm { padding: 4px 11px; font-size: 12px; }
+  .pill {
+    display: inline-block; font-size: 11px; border: 1px solid var(--wire);
+    border-radius: 99px; padding: 2px 10px; color: var(--muted); white-space: nowrap;
+  }
+  a.wl { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
+  .row > * { flex: 1; min-width: 130px; }
+  .row.tight { gap: 8px; align-items: center; }
+  .row.tight > * { flex: none; min-width: 0; }
+  .split { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .between { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .muted { color: var(--muted); }
+  .small { font-size: 12.5px; }
+  .strong { font-weight: 600; }
+
+  /* NEW marker — dashed amber = does not exist on the current site */
+  .new { border-style: dashed; border-color: var(--accent); }
+  .tag-new {
+    position: absolute; top: -8px; right: 12px;
+    font-size: 9px; letter-spacing: 0.14em; color: var(--accent);
+    background: var(--surface); padding: 0 6px; line-height: 1.4;
+  }
+
+  /* callout dots + notes */
+  .dot {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 19px; height: 19px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink);
+    font-size: 11px; font-weight: 700; border: none; cursor: pointer;
+    vertical-align: text-bottom; margin-left: 6px; flex: none;
+  }
+  .notes { margin: 0; padding-left: 0; list-style: none; counter-reset: note; }
+  .notes li {
+    counter-increment: note; position: relative;
+    padding: 10px 14px 10px 44px; margin: 6px 0;
+    border: 1.5px solid var(--wire-soft); border-radius: 9px;
+    background: var(--surface); max-width: 78ch; font-size: 14px;
+  }
+  .notes li::before {
+    content: counter(note);
+    position: absolute; left: 13px; top: 12px;
+    width: 19px; height: 19px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .notes li.flash { border-color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .notes li.flash { animation: flash 1.2s ease-out 1; }
+    @keyframes flash {
+      0% { background: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
+      100% { background: var(--surface); }
+    }
+  }
+  .pchip {
+    display: inline-block; font-size: 9.5px; letter-spacing: 0.08em;
+    border: 1px solid var(--accent); color: var(--accent);
+    border-radius: 4px; padding: 0 5px; margin-left: 6px; vertical-align: 1px;
+  }
+  h2.noteshead {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 10px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  /* phones */
+  .phones { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 26px; }
+  .phone {
+    width: 288px; flex: none; height: 580px;
+    border: 2px solid var(--wire); border-radius: 38px;
+    background: var(--surface); padding: 12px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .phone .speaker {
+    width: 74px; height: 5px; border-radius: 3px; background: var(--wire-soft);
+    margin: 2px auto 4px; flex: none;
+  }
+  .phone .pbody { flex: 1; display: flex; flex-direction: column; gap: 9px; overflow: hidden; padding: 0 4px; }
+  .phone .box { padding: 10px 12px; }
+  .tabbar {
+    display: flex; border-top: 1.5px solid var(--wire-soft); padding-top: 9px;
+    justify-content: space-around; flex: none;
+  }
+  .tabbar span {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 9.5px; letter-spacing: 0.03em; color: var(--muted); text-align: center;
+  }
+  .tabbar span.on { color: var(--ink); font-weight: 700; }
+  .tabbar span i {
+    display: block; width: 20px; height: 20px; margin: 0 auto 3px;
+    border: 1.5px solid currentColor; border-radius: 5px; font-style: normal;
+  }
+  .phonecap {
+    text-align: center; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; color: var(--muted); margin-top: 10px;
+  }
+
+  /* verdict table */
+  .vtable { border: 1.5px solid var(--wire); border-radius: 10px; overflow: hidden; background: var(--surface); margin-bottom: 26px; }
+  .vtable .vrow {
+    display: grid; grid-template-columns: minmax(150px, 1.1fr) 74px 2fr; gap: 14px;
+    padding: 11px 16px; border-top: 1px solid var(--wire-soft); align-items: baseline;
+  }
+  .vtable .vrow:first-child { border-top: none; }
+  .vtable .vhead {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  }
+  .yn {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em;
+    border-radius: 4px; padding: 1px 7px; display: inline-block; text-align: center;
+  }
+  .yn.yes { background: var(--ink); color: var(--surface); }
+  .yn.no { border: 1.5px dashed var(--wire); color: var(--muted); }
+  .yn.part { border: 1.5px solid var(--accent); color: var(--accent); }
+
+  /* overview extras */
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 26px; }
+  .legend .box { flex: 1; min-width: 210px; }
+  .sitemap {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px; line-height: 1.9; white-space: pre; overflow-x: auto;
+    border: 1.5px solid var(--wire); border-radius: 10px;
+    background: var(--surface); padding: 18px 22px; margin-bottom: 26px;
+  }
+  .sitemap b { color: var(--accent); font-weight: 700; }
+
+  @media (max-width: 880px) {
+    .app { flex-direction: column; }
+    .rail {
+      width: 100%; height: auto; position: sticky; top: 0; z-index: 5;
+      border-right: none; border-bottom: 1.5px solid var(--wire-soft);
+      padding: 10px 12px; overflow-x: auto;
+    }
+    .rail .brand { display: none; }
+    .rail nav { display: flex; gap: 2px; }
+    .rail nav button { white-space: nowrap; width: auto; }
+    .railgroup { display: none; }
+    .split, .grid3, .grid4 { grid-template-columns: 1fr; }
+    .vtable .vrow { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+
+<div class="app">
+  <aside class="rail">
+    <div class="brand">
+      <b>Beacon Baptist</b>
+      <span class="sub">Website revamp — wireframes v1</span>
+    </div>
+    <nav aria-label="Wireframe screens">
+      <div class="railgroup">Start</div>
+      <button data-s="overview" aria-current="true"><span class="n">0</span>Overview &amp; legend</button>
+      <div class="railgroup">Website</div>
+      <button data-s="home"><span class="n">1</span>Homepage</button>
+      <button data-s="visit"><span class="n">2</span>Plan a Visit</button>
+      <button data-s="sermons"><span class="n">3</span>Sermon library</button>
+      <button data-s="sermon"><span class="n">4</span>Sermon study view</button>
+      <button data-s="events"><span class="n">5</span>Events &amp; calendar</button>
+      <button data-s="missions"><span class="n">6</span>Missionaries &amp; letters</button>
+      <button data-s="give"><span class="n">7</span>Give</button>
+      <div class="railgroup">Mobile app</div>
+      <button data-s="pwa"><span class="n">8</span>PWA app shell</button>
+    </nav>
+  </aside>
+
+  <main>
+
+    <!-- ============ 0 · OVERVIEW ============ -->
+    <section class="screen active" id="s-overview">
+      <header>
+        <h1>Beacon website revamp — wireframes</h1>
+        <p class="purpose">Nine screens covering the revamped website and the PWA that replaces the old
+        native app. Grounded in a full audit of the current site (July 2026) and your planning notes.
+        Everything here is structure, not visual design — colors and branding come later.</p>
+      </header>
+
+      <div class="legend">
+        <div class="box">
+          <span class="lbl">How to read these</span>
+          <p class="small" style="margin:0 0 8px;">Solid boxes revamp something that exists today.
+          Dashed amber boxes are <b>new</b> — they don't exist on the current site at all.</p>
+          <div class="box new" style="padding:8px 12px;"><span class="tag-new">NEW</span><span class="small muted">e.g. the events calendar — today /events is a 404</span></div>
+        </div>
+        <div class="box">
+          <span class="lbl">Phases</span>
+          <p class="small" style="margin:0;">
+            <span class="pchip">P1</span> launch — the revamped site + installable PWA<br>
+            <span class="pchip">P2</span> push notifications, favorites, offline downloads manager<br>
+            <span class="pchip">P3</span> user accounts, recorded Sunday schools
+          </p>
+        </div>
+        <div class="box">
+          <span class="lbl">Callouts</span>
+          <p class="small" style="margin:0;">Amber dots <button class="dot" aria-label="Example callout" style="cursor:default; margin:0 2px;">3</button> on each screen point to numbered
+          design notes underneath — the reasoning, and what it fixes on the current site.</p>
+        </div>
+      </div>
+
+      <h2 class="noteshead">Proposed sitemap</h2>
+      <div class="sitemap">beaconbaptistchurch.org
+├── Plan a Visit          <b>← NEW</b> · the #1 missing page for first-timers
+├── About                 · beliefs, history, Pastor Jim Blalock
+├── Sermons               · 3,062-sermon archive, search + filters (keep, improve)
+│   └── Sermon study view · player, transcript, tags, agentic search
+├── Events &amp; Calendar     <b>← NEW</b> · today /events is a 404; VBS lives on the homepage
+├── Missionaries          <b>← NEW</b> · directory + letters; zero missions content today
+│   └── Letters archive
+├── Ministries            · rescue the orphaned /ministries page (currently lorem ipsum)
+└── Give                  · embedded, with give-to-a-missionary  (today: bare Tithe.ly link)</div>
+
+      <h2 class="noteshead">What the audit found (the short version)</h2>
+      <ol class="notes">
+        <li><b>The homepage already leans visitor-first</b> — good instinct, we keep that. But the #1
+        next step for a newcomer (the visitor form) is buried in the footer, there's no Plan a Visit
+        page (<span class="mono small">/visit</span> is a 404), no map, and the hero's main button bounces people off-site to YouTube.</li>
+        <li><b>The sermon archive is a genuine asset:</b> 3,062 sermons with machine transcripts,
+        already searchable (Algolia) and already living in Airtable — your notes' "sermon API" mostly exists.
+        The wireframes build the study experience on top of it.</li>
+        <li><b>Events, calendar, and missions simply don't exist</b> on the current site. No events page,
+        no calendar, and the word "missionary" appears on zero pages. The old native app was the only channel
+        for letters — screens 5 and 6 bring both onto the web.</li>
+        <li><b>⚠️ One urgent technical finding</b> also came out of the audit — documented privately in
+        <span class="mono small">docs/research/site-audit.md</span> on the prototype branch. Rick: read that one first.</li>
+        <li><b>PWA verdict on your two questions:</b> sermon downloads — <b>yes</b>. CarPlay — <b>no app icon</b>
+        (that needs a native app), but steering-wheel/Now&nbsp;Playing control works, and the church's existing
+        podcast feed gets sermons into Apple Podcasts &amp; Spotify, which <i>do</i> have CarPlay apps. Full table on screen 8.</li>
+      </ol>
+    </section>
+
+    <!-- ============ 1 · HOMEPAGE ============ -->
+    <section class="screen" id="s-home">
+      <header>
+        <h1>1 · Homepage</h1>
+        <p class="purpose">For visitors, as your notes said. Answers "what church is this, when are
+        services, how do I visit" without scrolling — then serves members one level down.</p>
+      </header>
+
+      <div class="frame">
+        <div class="chrome"><i></i><i></i><i></i><span class="urlbar">beaconbaptistchurch.org</span></div>
+        <div class="canvas">
+
+          <div class="box">
+            <div class="between">
+              <span class="strong">BEACON <span class="muted small">Baptist Church</span></span>
+              <span class="small muted">Visit&nbsp;&nbsp;About&nbsp;&nbsp;Sermons&nbsp;&nbsp;Events&nbsp;&nbsp;Missionaries&nbsp;&nbsp;Give</span>
+              <span class="btn sm primary">Plan a Visit</span>
+              <button class="dot" data-note="home-1" aria-label="Note 1">1</button>
+            </div>
+          </div>
+
+          <div class="box" style="padding:8px 15px;">
+            <div class="between small">
+              <span>Sundays · 10am Sunday School · 11am Worship · 6:30pm Evening&nbsp;&nbsp;|&nbsp;&nbsp;Wednesdays · 7pm · Kid's Club 6:45pm</span>
+              <span><a class="wl" href="#" onclick="return false">11616 Indiantown Rd, Jupiter FL — directions</a>
+              <button class="dot" data-note="home-2" aria-label="Note 2">2</button></span>
+            </div>
+          </div>
+
+          <div class="img" style="min-height:210px;">
+            <span class="cap">hero photo — real congregation, not stock</span>
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:28px; gap:10px;">
+              <div style="font-size:26px; font-weight:700; background:var(--surface); padding:2px 10px; border-radius:6px;">Your bright future begins in Jesus.</div>
+              <div class="small muted" style="background:var(--surface); padding:2px 10px; border-radius:6px;">An independent, New Testament church in Jupiter, Florida</div>
+              <div class="row tight" style="margin-top:6px;">
+                <span class="btn primary">Plan a Visit</span>
+                <span class="btn" style="background:var(--surface);">Watch live</span>
+                <button class="dot" data-note="home-3" aria-label="Note 3">3</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
+            <div class="between">
+              <span class="lbl" style="margin:0;">This week at Beacon</span>
+              <span><a class="wl small" href="#" onclick="return false">Full calendar →</a>
+              <button class="dot" data-note="home-4" aria-label="Note 4">4</button></span>
+            </div>
+            <div class="grid3" style="margin-top:10px;">
+              <div class="box"><span class="strong small">VBS 2026</span><br><span class="small muted">Jul 13–17 · 9:30am–12:30pm</span><br><span class="btn sm" style="margin-top:6px;">Register</span></div>
+              <div class="box"><span class="strong small">Men's Basketball</span><br><span class="small muted">Thu · 7pm · Gym</span></div>
+              <div class="box"><span class="strong small">Choir Practice</span><br><span class="small muted">Sun · 5pm · Sanctuary</span></div>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="box">
+              <span class="lbl">Latest sermon</span>
+              <span class="strong">A Welcome Sight — Psalm 119:74–81</span>
+              <div class="small muted">Jim Blalock · Sunday Morning · Jul 5, 2026</div>
+              <div class="row tight" style="margin-top:10px;">
+                <span class="btn sm primary">▶ Play</span>
+                <span class="pill">28 min</span>
+                <a class="wl small" href="#" onclick="return false">Browse 3,062 sermons →</a>
+                <button class="dot" data-note="home-5" aria-label="Note 5">5</button>
+              </div>
+            </div>
+            <div class="box new">
+              <span class="tag-new">NEW</span>
+              <span class="lbl">From our missionaries</span>
+              <div class="small"><span class="strong">[Missionary] — [Field]</span><br>
+              <span class="muted">July letter · "Pray for…"</span></div>
+              <a class="wl small" href="#" onclick="return false">All letters →</a>
+              <button class="dot" data-note="home-6" aria-label="Note 6">6</button>
+            </div>
+          </div>
+
+          <div class="box">
+            <span class="lbl">The Gospel</span>
+            <div class="tl w70"></div><div class="tl w55"></div>
+            <a class="wl small" href="#" onclick="return false">What is the Gospel? →</a>
+          </div>
+
+          <div class="box">
+            <div class="split">
+              <div>
+                <span class="lbl">Footer — one canonical block, reused everywhere</span>
+                <div class="tl w55"></div><div class="tl w40"></div>
+                <span class="small muted">Service times · address · phone · email · social · quick links</span>
+                <button class="dot" data-note="home-7" aria-label="Note 7">7</button>
+              </div>
+              <div class="img" style="min-height:80px;"><span class="cap">embedded map</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="home-1"><b>Nav rebuilt around visitor questions</b> — Visit, About, Sermons, Events, Missionaries, Give —
+        with Plan a Visit as a persistent standout button. Today the visitor form is a footer link on a third-party domain. <span class="pchip">P1</span></li>
+        <li id="home-2"><b>Service times + directions above the fold.</b> Research point: visitors decide in 3–5 seconds.
+        This strip also becomes the <i>single source of truth</i> for times — today the header and footer already disagree (the header omits Kid's Club). <span class="pchip">P1</span></li>
+        <li id="home-3"><b>Keep the headline, fix the CTA.</b> "Your bright future begins in Jesus" stays — it's distinctive.
+        But the current hero's primary button bounces to YouTube; here Watch Live opens an on-site watch page so a first-time
+        browser stays in the visit flow. <span class="pchip">P1</span></li>
+        <li id="home-4"><b>Events strip replaces the hand-edited VBS block.</b> Cards pull from the same data that powers
+        screen 5, so Jason updates one place. VBS registration still lands on Breeze — embedded, not bounced. <span class="pchip">P1</span></li>
+        <li id="home-5"><b>Latest sermon plays inline.</b> Today there is no player anywhere on the homepage and even the
+        sermon list page can't play audio without a click-through. <span class="pchip">P1</span></li>
+        <li id="home-6"><b>Missionary letters get a homepage presence</b> for the first time — the old native app was their only
+        home. Names/fields are placeholders until we load the real list. <span class="pchip">P1</span></li>
+        <li id="home-7"><b>Footer gains a map and an email address</b> — the current site has neither anywhere, and the © line
+        still says 2022. <span class="pchip">P1</span></li>
+      </ol>
+    </section>
+
+    <!-- ============ 2 · PLAN A VISIT ============ -->
+    <section class="screen" id="s-visit">
+      <header>
+        <h1>2 · Plan a Visit</h1>
+        <p class="purpose">The single most important page the current site doesn't have (/visit is a 404).
+        Everything a nervous first-timer wants to know before Sunday.</p>
+      </header>
+
+      <div class="frame">
+        <div class="chrome"><i></i><i></i><i></i><span class="urlbar">beaconbaptistchurch.org/visit</span></div>
+        <div class="canvas">
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
+            <div class="split">
+              <div>
+                <div style="font-size:22px; font-weight:700;">New here? We'd love to meet you.</div>
+                <div class="tl w70"></div><div class="tl w55"></div>
+                <span class="btn primary" style="margin-top:8px;">Let us know you're coming</span>
+                <button class="dot" data-note="visit-1" aria-label="Note 1">1</button>
+              </div>
+              <div class="box">
+                <span class="lbl">Join us</span>
+                <div class="small">
+                  Sun 10am · Sunday School<br>
+                  Sun 11am · Worship<br>
+                  Sun 6:30pm · Evening service<br>
+                  Wed 7pm · Midweek · Kid's Club 6:45pm
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div class="box"><span class="lbl">What to expect</span><div class="tl w85"></div><div class="tl w70"></div><span class="small muted">service length, music, preaching</span></div>
+            <div class="box"><span class="lbl">Your kids</span><div class="tl w85"></div><div class="tl w70"></div><span class="small muted">Sunday School · Jr. Church · nursery · Kid's Club</span><button class="dot" data-note="visit-2" aria-label="Note 2">2</button></div>
+            <div class="box"><span class="lbl">Come as you are</span><div class="tl w85"></div><div class="tl w70"></div><span class="small muted">dress, parking, when you arrive</span></div>
+          </div>
+
+          <div class="split">
+            <div class="img" style="min-height:150px;"><span class="cap">embedded map + parking callout</span></div>
+            <div class="box">
+              <span class="lbl">Getting here</span>
+              <div class="small">11616 Indiantown Rd<br>Jupiter, FL 33478<br>(561) 746-5096</div>
+              <span class="btn sm" style="margin-top:8px;">Get directions</span>
+              <button class="dot" data-note="visit-3" aria-label="Note 3">3</button>
+            </div>
+          </div>
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
+            <span class="lbl">Visitor form — embedded on this page</span>
+            <div class="row">
+              <div class="box" style="padding:8px;"><span class="small muted">Name</span></div>
+              <div class="box" style="padding:8px;"><span class="small muted">Email or phone</span></div>
+              <span class="btn sm primary" style="align-self:center;">Send</span>
+            </div>
+            <span class="small muted">Backed by the existing Breeze form — embedded here instead of bouncing to breezechms.com</span>
+            <button class="dot" data-note="visit-4" aria-label="Note 4">4</button>
+          </div>
+
+          <div class="box">
+            <span class="lbl">Common questions (accordion)</span>
+            <div class="tl w40"></div><div class="tl w55"></div><div class="tl w40"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="visit-1"><b>One promise, one button.</b> The page has a single job: get a first-timer to Sunday.
+        Research calls Plan-a-Visit the most important page on a church site. <span class="pchip">P1</span></li>
+        <li id="visit-2"><b>Kids content is the visitor's #1 anxiety</b> — check-in, safety, what happens at each age.
+        Pulls from the ministries the church already runs (Sunday School, Jr. Church, Kid's Club, VBS). <span class="pchip">P1</span></li>
+        <li id="visit-3"><b>Map, parking, arrival.</b> Today the address exists only as footer text — no map on the entire site. <span class="pchip">P1</span></li>
+        <li id="visit-4"><b>Keep Breeze as the backend, lose the bounce.</b> Same form the church already processes,
+        embedded so the visitor never leaves a page that looks like Beacon. <span class="pchip">P1</span></li>
+      </ol>
+    </section>
+
+    <!-- ============ 3 · SERMON LIBRARY ============ -->
+    <section class="screen" id="s-sermons">
+      <header>
+        <h1>3 · Sermon library</h1>
+        <p class="purpose">The archive is already strong — 3,062 sermons in Airtable with transcripts and Algolia
+        search. This keeps that engine and rebuilds the experience around it.</p>
+      </header>
+
+      <div class="frame">
+        <div class="chrome"><i></i><i></i><i></i><span class="urlbar">beaconbaptistchurch.org/sermons</span></div>
+        <div class="canvas">
+
+          <div class="box">
+            <div class="between">
+              <div style="flex:1; min-width:220px;">
+                <div class="box" style="padding:9px 14px;"><span class="muted small">🔍&nbsp; Search 3,062 sermons — titles, passages, or full transcripts… e.g. "Romans 10"</span></div>
+              </div>
+              <button class="dot" data-note="ser-1" aria-label="Note 1">1</button>
+            </div>
+            <div class="row tight" style="margin-top:9px;">
+              <span class="pill">All</span><span class="pill">Series</span><span class="pill">Speakers</span><span class="pill">Books of the Bible</span><span class="pill">Topics</span>
+              <span class="pill" style="border-style:dashed; border-color:var(--accent); color:var(--accent);">Ask a question ✦</span>
+              <button class="dot" data-note="ser-2" aria-label="Note 2">2</button>
+            </div>
+          </div>
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
+            <span class="lbl">Current series</span>
+            <div class="between">
+              <div>
+                <span class="strong">Thessalonians: Watching and Waiting</span>
+                <div class="small muted">8 messages · Jim Blalock · latest: Part 8 — 2 Thessalonians 2 · Jul 8</div>
+              </div>
+              <span class="btn sm">Follow series</span>
+              <button class="dot" data-note="ser-3" aria-label="Note 3">3</button>
+            </div>
+          </div>
+
+          <div class="split">
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="box">
+                <div class="between">
+                  <div>
+                    <span class="strong">Thessalonians – Watching and Waiting – Part 8</span>
+                    <div class="small muted">2 Thessalonians 2 · Jim Blalock · Wed Evening · Jul 8, 2026</div>
+                  </div>
+                  <span class="row tight"><span class="btn sm primary">▶</span><span class="pill">42 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
+                </div>
+                <button class="dot" data-note="ser-4" aria-label="Note 4">4</button>
+              </div>
+              <div class="box">
+                <div class="between">
+                  <div>
+                    <span class="strong">A Welcome Sight</span>
+                    <div class="small muted">Psalm 119:74–81 · Jim Blalock · Sunday Morning · Jul 5, 2026</div>
+                  </div>
+                  <span class="row tight"><span class="btn sm primary">▶</span><span class="pill">28 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
+                </div>
+              </div>
+              <div class="box">
+                <div class="between">
+                  <div>
+                    <span class="strong">A Notable Nobody</span>
+                    <div class="small muted">Acts 19:23–30 · Jason Lowe · Sunday Evening · Jul 5, 2026</div>
+                  </div>
+                  <span class="row tight"><span class="btn sm primary">▶</span><span class="pill">35 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
+                </div>
+              </div>
+              <div style="text-align:center;"><span class="btn sm">Load more</span></div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="box">
+                <span class="lbl">Filter</span>
+                <div class="small strong">Service</div>
+                <div class="small muted">Sunday AM · Sunday PM · Wednesday</div>
+                <div class="small strong" style="margin-top:8px;">Teaching series</div>
+                <div class="small muted">Life of Christ · Romans · Thessalonians…</div>
+                <button class="dot" data-note="ser-5" aria-label="Note 5">5</button>
+                <div class="small strong" style="margin-top:8px;">Speaker</div>
+                <div class="small muted">Jim Blalock · Andy Blalock · Kevin Besaw · Hugh Black · Jason Lowe</div>
+                <div class="small strong" style="margin-top:8px;">Book</div>
+                <div class="small muted">Psalms · Luke · Acts · Matthew…</div>
+                <div class="small strong" style="margin-top:8px;">Year</div>
+                <div class="small muted">2026 ▾</div>
+              </div>
+              <div class="box new">
+                <span class="tag-new">NEW</span>
+                <span class="lbl">Listen anywhere</span>
+                <span class="small muted">Apple Podcasts · Spotify · RSS<br>— includes CarPlay via podcast apps</span>
+                <button class="dot" data-note="ser-6" aria-label="Note 6">6</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="ser-1"><b>Keep the transcript search — it's the archive's superpower.</b> Full-text search over machine
+        transcripts already works via Algolia; we keep the exact-match quotes trick and make it the default experience. <span class="pchip">P1</span></li>
+        <li id="ser-2"><b>"Ask a question" is the entry point for the agentic sermon search</b> your team is already building —
+        a visitor asks "what has Pastor Blalock taught on assurance?" and gets sermons + passages back. Slot it in as a tab so it
+        can ship whenever it's ready. <span class="pchip">P2</span></li>
+        <li id="ser-3"><b>Series become first-class.</b> Featured current series with a follow action;
+        each series gets its own page collecting the whole sequence. <span class="pchip">P1</span></li>
+        <li id="ser-4"><b>Play, download, favorite — right on the card.</b> Today the list page can't play anything;
+        the ⬇ maps to PWA offline downloads and ☆ to favorites (device-local first, synced to accounts in P3). <span class="pchip">P1–P2</span></li>
+        <li id="ser-5"><b>Fix the taxonomy: "Sunday Morning" isn't a series.</b> The current Series filter mixes service times
+        with real teaching series (and its counts are wrong — inflated beyond the archive size by duplicated lookup values in the data).
+        Split Service vs Series, add Year, and add your notes' Tags/Topics. <span class="pchip">P1</span></li>
+        <li id="ser-6"><b>The podcast feed is the CarPlay answer.</b> The church already publishes to Spotify; adding
+        Apple Podcasts + a clean RSS means sermons show up in real CarPlay apps without app-store risk. <span class="pchip">P1</span></li>
+      </ol>
+    </section>
+
+    <!-- ============ 4 · SERMON STUDY VIEW ============ -->
+    <section class="screen" id="s-sermon">
+      <header>
+        <h1>4 · Sermon study view</h1>
+        <p class="purpose">Your notes asked: "can we take the sermon database and make it to where you can study?"
+        This is that page — player + transcript + study tools on one screen.</p>
+      </header>
+
+      <div class="frame">
+        <div class="chrome"><i></i><i></i><i></i><span class="urlbar">beaconbaptistchurch.org/sermons/2026/a-welcome-sight</span></div>
+        <div class="canvas">
+
+          <div class="box">
+            <span class="small muted">Sermons → Sunday Morning → </span>
+            <div style="font-size:20px; font-weight:700;">A Welcome Sight</div>
+            <div class="row tight" style="margin-top:6px;">
+              <span class="pill">Psalm 119:74–81</span><span class="pill">Jim Blalock</span><span class="pill">Jul 5, 2026</span><span class="pill">Sunday Morning</span>
+              <span class="pill" style="border-style:dashed;">+ hope</span><span class="pill" style="border-style:dashed;">+ Psalm 119 series</span>
+              <button class="dot" data-note="det-1" aria-label="Note 1">1</button>
+            </div>
+          </div>
+
+          <div class="box" style="border-width:2px;">
+            <div class="between">
+              <span class="row tight">
+                <span class="btn sm primary">▶</span>
+                <span class="mono small muted">12:04 / 28:31</span>
+              </span>
+              <span style="flex:1; min-width:120px;"><div class="tl" style="margin:0;"></div></span>
+              <span class="row tight">
+                <span class="pill">1.5×</span>
+                <span class="pill">⬇ offline</span>
+                <span class="pill">☆ favorite</span>
+                <span class="pill">↗ share</span>
+              </span>
+              <button class="dot" data-note="det-2" aria-label="Note 2">2</button>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="box">
+              <span class="lbl">Transcript — synced to audio</span>
+              <div class="tl w85"></div><div class="tl w70"></div>
+              <div class="tl w85" style="background:var(--accent); opacity:0.45;"></div>
+              <div class="tl w55"></div><div class="tl w70"></div><div class="tl w85"></div><div class="tl w40"></div>
+              <span class="small muted">click a line to jump the audio · search within · copy with citation</span>
+              <button class="dot" data-note="det-3" aria-label="Note 3">3</button>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="box new">
+                <span class="tag-new">NEW</span>
+                <span class="lbl">Ask about this sermon ✦</span>
+                <div class="box" style="padding:7px 10px;"><span class="small muted">"Where does he explain v. 76?"</span></div>
+                <button class="dot" data-note="det-4" aria-label="Note 4">4</button>
+              </div>
+              <div class="box">
+                <span class="lbl">In this series</span>
+                <div class="small">Psalm 119:65–72 · Jun 28<br>Psalm 119:57–64 · Jun 21</div>
+              </div>
+              <div class="box">
+                <span class="lbl">Related sermons</span>
+                <div class="small muted">same passage · same topic tags</div>
+                <button class="dot" data-note="det-5" aria-label="Note 5">5</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="det-1"><b>Readable URLs and rich metadata.</b> Today a sermon lives at
+        <span class="mono small">/sermon/recA4tSieAbOsYcIU</span> — an Airtable record ID. Slugged URLs + server-rendered pages fix
+        sharing (right now a shared sermon link previews as a blank page) and let Google index 3,062 sermons. Tags from your notes
+        become the dashed chips. <span class="pchip">P1</span></li>
+        <li id="det-2"><b>One player, all formats.</b> Today you get a YouTube embed <i>or</i> a bare audio tag, and the "Audio"
+        button opens a raw S3 MP3 in a new tab. Here: one persistent player with speed, a real labeled download (which doubles as
+        the PWA offline action), favorite, and share. <span class="pchip">P1</span></li>
+        <li id="det-3"><b>The transcripts already exist</b> — every sermon has a machine transcription in Airtable that's currently
+        only used as hidden search fodder. Surfacing it synced to the audio is what turns a listen into a study session. <span class="pchip">P1</span></li>
+        <li id="det-4"><b>Digital commentary, scoped to one sermon.</b> The same agentic search from screen 3, but grounded in this
+        transcript — your notes' "digital commentary with transcripts." <span class="pchip">P2</span></li>
+        <li id="det-5"><b>Related-by-passage is nearly free</b> — scripture references are already structured data in Airtable,
+        so "other sermons on Psalm 119" is a query, not a project. <span class="pchip">P1</span></li>
+      </ol>
+    </section>
+
+    <!-- ============ 5 · EVENTS & CALENDAR ============ -->
+    <section class="screen" id="s-events">
+      <header>
+        <h1>5 · Events &amp; calendar</h1>
+        <p class="purpose">Today /events and /calendar are 404s — the only event on the site is a
+        hand-placed VBS block on the homepage. This is the page Jason will maintain.</p>
+      </header>
+
+      <div class="frame">
+        <div class="chrome"><i></i><i></i><i></i><span class="urlbar">beaconbaptistchurch.org/events</span></div>
+        <div class="canvas">
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
+            <div class="between">
+              <span class="row tight">
+                <span class="btn sm primary">List</span><span class="btn sm">Month</span>
+                <button class="dot" data-note="ev-1" aria-label="Note 1">1</button>
+              </span>
+              <span class="row tight">
+                <span class="pill">All ministries ▾</span><span class="pill">All ages ▾</span>
+                <span class="btn sm">⇩ Subscribe to calendar</span>
+                <button class="dot" data-note="ev-2" aria-label="Note 2">2</button>
+              </span>
+            </div>
+          </div>
+
+          <div class="box new" style="border-width:2px;">
+            <span class="tag-new">NEW</span>
+            <div class="split">
+              <div>
+                <span class="lbl">Featured</span>
+                <span class="strong" style="font-size:18px;">VBS 2026</span>
+                <div class="small muted">Mon Jul 13 – Fri Jul 17 · 9:30am–12:30pm · ages K4–6th grade</div>
+                <div class="tl w70"></div>
+                <div class="row tight" style="margin-top:8px;">
+                  <span class="btn sm primary">Register your kids</span>
+                  <span class="pill">42 spots left</span>
+                  <button class="dot" data-note="ev-3" aria-label="Note 3">3</button>
+                </div>
+              </div>
+              <div class="img" style="min-height:110px;"><span class="cap">event image</span></div>
+            </div>
+          </div>
+
+          <div class="box">
+            <span class="lbl">Week of July 13</span>
+            <div class="between" style="border-bottom:1px solid var(--wire-soft); padding:8px 0;">
+              <span><span class="mono small strong">JUL 16</span> &nbsp; <span class="strong small">Men's Basketball</span> <span class="small muted">· 7pm · Gym</span></span>
+              <span class="row tight"><span class="btn sm">RSVP</span><button class="dot" data-note="ev-4" aria-label="Note 4">4</button></span>
+            </div>
+            <div class="between" style="border-bottom:1px solid var(--wire-soft); padding:8px 0;">
+              <span><span class="mono small strong">JUL 18</span> &nbsp; <span class="strong small">Ladies Fellowship</span> <span class="small muted">· 10am · Fellowship Hall</span></span>
+              <span class="btn sm">RSVP</span>
+            </div>
+            <div class="between" style="padding:8px 0;">
+              <span><span class="mono small strong">JUL 19</span> &nbsp; <span class="strong small">Choir Practice</span> <span class="small muted">· 5pm · Sanctuary</span></span>
+              <span class="pill">no signup needed</span>
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="between">
+              <div>
+                <span class="lbl">Weekly services — always here, not buried in the calendar</span>
+                <span class="small muted">Sun 10am SS · 11am Worship · 6:30pm Evening · Wed 7pm + Kid's Club 6:45pm</span>
+              </div>
+              <button class="dot" data-note="ev-5" aria-label="Note 5">5</button>
+            </div>
+          </div>
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
+            <span class="lbl">RSVP flow (modal) — no account needed</span>
+            <div class="row">
+              <div class="box" style="padding:8px;"><span class="small muted">Name</span></div>
+              <div class="box" style="padding:8px;"><span class="small muted">Email or mobile</span></div>
+              <div class="box" style="padding:8px;"><span class="small muted">How many? ▾</span></div>
+              <span class="btn sm primary" style="align-self:center;">I'm coming</span>
+            </div>
+            <span class="small muted">confirmation + add-to-calendar + reminder before the event <span class="pchip">P2</span></span>
+            <button class="dot" data-note="ev-6" aria-label="Note 6">6</button>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="ev-1"><b>List by default, month grid on desktop.</b> Research: lists convert better on mobile, calendars create
+        date urgency on desktop — offer both, one dataset. <span class="pchip">P1</span></li>
+        <li id="ev-2"><b>"Subscribe to calendar" answers your notes directly</b> — members add Beacon's calendar to Google/Apple
+        via an ICS feed and it stays current forever. <span class="pchip">P1</span></li>
+        <li id="ev-3"><b>Featured events with capacity.</b> VBS keeps its Breeze registration (all the child-info and waiver
+        handling stays there) — but the event page is Beacon-branded and shows remaining spots. <span class="pchip">P1</span></li>
+        <li id="ev-4"><b>Lightweight RSVP for simple events</b> where full Breeze registration is overkill — basketball,
+        fellowships. One mechanism per event: RSVP <i>or</i> register, never both. <span class="pchip">P1</span></li>
+        <li id="ev-5"><b>Services stay separate from events.</b> Weekly services live as a fixed block (and on Visit/homepage);
+        the calendar is for the special stuff. Prevents "Sunday Morning" clutter — the same mistake the sermon Series filter makes today. <span class="pchip">P1</span></li>
+        <li id="ev-6"><b>RSVP without accounts, reminders later.</b> Name + contact is enough at launch; SMS/push reminders arrive
+        in P2, and RSVPs link to accounts in P3. <span class="pchip">P1–P3</span></li>
+      </ol>
+    </section>
+
+    <!-- ============ 6 · MISSIONARIES & LETTERS ============ -->
+    <section class="screen" id="s-missions">
+      <header>
+        <h1>6 · Missionaries &amp; letters</h1>
+        <p class="purpose">The word "missionary" appears on zero pages of the current site — the old app was the
+        letters' only home, and it kept getting banned. This gives them a permanent one.</p>
+      </header>
+
+      <div class="frame">
+        <div class="chrome"><i></i><i></i><i></i><span class="urlbar">beaconbaptistchurch.org/missionaries</span></div>
+        <div class="canvas">
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
+            <div class="split">
+              <div>
+                <div style="font-size:20px; font-weight:700;">Our missionaries</div>
+                <div class="tl w70"></div><div class="tl w55"></div>
+                <span class="small muted">missions vision · pray — go — give</span>
+                <button class="dot" data-note="mis-1" aria-label="Note 1">1</button>
+              </div>
+              <div class="img" style="min-height:100px;"><span class="cap">world map with field pins</span></div>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div class="box new">
+              <span class="tag-new">NEW</span>
+              <div class="img" style="min-height:70px;"><span class="cap">family photo</span></div>
+              <div class="strong small" style="margin-top:8px;">[Missionary family]</div>
+              <div class="small muted">[Field / country] · serving since [year]</div>
+              <div class="row tight" style="margin-top:8px;">
+                <span class="btn sm">Letters</span><span class="btn sm">Give</span><span class="pill">Pray</span>
+              </div>
+              <button class="dot" data-note="mis-2" aria-label="Note 2">2</button>
+            </div>
+            <div class="box new"><span class="tag-new">NEW</span>
+              <div class="img" style="min-height:70px;"><span class="cap">photo</span></div>
+              <div class="strong small" style="margin-top:8px;">[Missionary family]</div>
+              <div class="small muted">[Field / country]</div>
+              <div class="row tight" style="margin-top:8px;"><span class="btn sm">Letters</span><span class="btn sm">Give</span><span class="pill">Pray</span></div>
+            </div>
+            <div class="box new"><span class="tag-new">NEW</span>
+              <div class="img" style="min-height:70px;"><span class="cap">photo</span></div>
+              <div class="strong small" style="margin-top:8px;">[Missionary family]</div>
+              <div class="small muted">[Field / country]</div>
+              <div class="row tight" style="margin-top:8px;"><span class="btn sm">Letters</span><span class="btn sm">Give</span><span class="pill">Pray</span></div>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="box new">
+              <span class="tag-new">NEW</span>
+              <span class="lbl">Letter reader</span>
+              <div class="strong small">July 2026 — [Missionary family]</div>
+              <div class="tl w85"></div><div class="tl w70"></div><div class="tl w85"></div><div class="tl w55"></div>
+              <div class="box" style="margin-top:8px; padding:8px 12px;">
+                <span class="lbl" style="margin:0;">Pray for</span>
+                <div class="tl w55"></div><div class="tl w40"></div>
+              </div>
+              <button class="dot" data-note="mis-3" aria-label="Note 3">3</button>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="box">
+                <span class="lbl">Letter archive</span>
+                <div class="small muted">July 2026<br>May 2026<br>February 2026<br>…</div>
+              </div>
+              <div class="box new">
+                <span class="tag-new">NEW</span>
+                <span class="lbl">Get new letters</span>
+                <span class="small muted">email · push notification</span>
+                <button class="dot" data-note="mis-4" aria-label="Note 4">4</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="mis-1"><b>Pray — go — give structure</b> is the standard missions-page pattern: vision up top,
+        then three ways in. The abandoned /ministries page (currently unlinked, with lorem-ipsum text) gets rescued as part of
+        this work. <span class="pchip">P1</span></li>
+        <li id="mis-2"><b>Directory cards with designated giving.</b> Research finding: letting donors give directly from a
+        missionary's profile measurably increases missions gifts — and it's your notes' "give to church or missionary right
+        inside the app." Names are placeholders until the real list is loaded (Airtable table, same pattern as sermons). <span class="pchip">P1</span></li>
+        <li id="mis-3"><b>Letters as readable pages, not PDFs</b> — with an extracted "Pray for" block, because that's what
+        members actually use letters for. Jason posts these; the same content powers app, email, and push. <span class="pchip">P1</span></li>
+        <li id="mis-4"><b>Subscriptions replace the app's push role at first via email</b> (works everywhere, day one),
+        with web push joining in P2. <span class="pchip">P1–P2</span></li>
+      </ol>
+    </section>
+
+    <!-- ============ 7 · GIVE ============ -->
+    <section class="screen" id="s-give">
+      <header>
+        <h1>7 · Give</h1>
+        <p class="purpose">Today the Give page is one outbound Tithe.ly link. Keep Tithe.ly as the processor,
+        but make giving feel like Beacon — and add designated missionary giving.</p>
+      </header>
+
+      <div class="frame">
+        <div class="chrome"><i></i><i></i><i></i><span class="urlbar">beaconbaptistchurch.org/give</span></div>
+        <div class="canvas">
+
+          <div class="split">
+            <div class="box">
+              <span class="lbl">Give online — embedded, stays on this page</span>
+              <div class="row tight" style="margin-bottom:8px;">
+                <span class="btn sm primary">General Fund</span>
+                <span class="btn sm">Missions</span>
+                <span class="btn sm" style="border-style:dashed; border-color:var(--accent);">A missionary ▾</span>
+                <button class="dot" data-note="giv-1" aria-label="Note 1">1</button>
+              </div>
+              <div class="row">
+                <div class="box" style="padding:8px;"><span class="small muted">$ amount</span></div>
+                <div class="box" style="padding:8px;"><span class="small muted">One-time ▾ / weekly / monthly</span></div>
+              </div>
+              <div class="row tight" style="margin-top:8px;">
+                <span class="btn primary">Give</span>
+                <span class="pill"> Pay</span><span class="pill">G Pay</span>
+                <button class="dot" data-note="giv-2" aria-label="Note 2">2</button>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="box">
+                <span class="lbl">Why we give</span>
+                <div class="tl w85"></div><div class="tl w70"></div>
+              </div>
+              <div class="box">
+                <span class="lbl">Other ways</span>
+                <span class="small muted">in person · by mail · text-to-give</span>
+                <button class="dot" data-note="giv-3" aria-label="Note 3">3</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="giv-1"><b>Fund designation up front</b> — General, Missions, or a specific missionary (linked straight from their
+        card on screen 6). Backed by Tithe.ly funds, so bookkeeping doesn't change. <span class="pchip">P1</span></li>
+        <li id="giv-2"><b>Embed, don't redirect.</b> Research is blunt on this: bouncing to a third-party domain right at the
+        moment of payment erodes trust. Tithe.ly offers an embeddable widget; recurring is promoted as the default. <span class="pchip">P1</span></li>
+        <li id="giv-3"><b>Every giving channel on one page</b> — including the physical ones. A QR code to this page can live in
+        the bulletin. <span class="pchip">P1</span></li>
+      </ol>
+    </section>
+
+    <!-- ============ 8 · PWA ============ -->
+    <section class="screen" id="s-pwa">
+      <header>
+        <h1>8 · The PWA — Beacon in your pocket, no app store</h1>
+        <p class="purpose">Same website, installed to the home screen — so there is nothing for Apple or Google
+        to kick off. Here's the app shell, plus straight answers to your CarPlay and download questions.</p>
+      </header>
+
+      <div class="phones">
+        <div>
+          <div class="phone">
+            <div class="speaker"></div>
+            <div class="pbody">
+              <div class="box" style="padding:8px 12px;"><span class="strong small">BEACON</span> <span class="small muted">· Sun 11am worship</span></div>
+              <div class="box new"><span class="tag-new">NEW</span>
+                <span class="lbl">This week</span>
+                <div class="small">VBS 2026 · Jul 13–17<br><span class="muted">Register by Sunday</span></div>
+              </div>
+              <div class="box">
+                <span class="lbl">Latest sermon</span>
+                <div class="small strong">A Welcome Sight</div>
+                <div class="small muted">Ps 119:74–81 · Jul 5</div>
+                <div class="row tight" style="margin-top:6px;"><span class="btn sm primary">▶</span><span class="pill">⬇</span><span class="pill">☆</span></div>
+              </div>
+              <div class="box">
+                <span class="lbl">New letter</span>
+                <div class="small muted">[Missionary] · July</div>
+              </div>
+              <div class="tabbar">
+                <span class="on"><i></i>Home</span><span><i></i>Sermons</span><span><i></i>Calendar</span><span><i></i>Letters</span><span><i></i>Give</span>
+              </div>
+            </div>
+          </div>
+          <div class="phonecap">Home tab <button class="dot" data-note="pwa-1" aria-label="Note 1">1</button></div>
+        </div>
+
+        <div>
+          <div class="phone">
+            <div class="speaker"></div>
+            <div class="pbody">
+              <div class="box">
+                <span class="lbl">Now playing</span>
+                <div class="small strong">Thessalonians Pt 8</div>
+                <div class="tl" style="margin:10px 0 4px;"></div>
+                <div class="between"><span class="mono small muted">12:04</span><span class="mono small muted">42:10</span></div>
+                <div class="row tight" style="justify-content:center; margin-top:6px;">
+                  <span class="pill">−15s</span><span class="btn sm primary">▶</span><span class="pill">+30s</span><span class="pill">1.5×</span>
+                </div>
+              </div>
+              <div class="box new"><span class="tag-new">NEW</span>
+                <span class="lbl">Downloaded — plays offline</span>
+                <div class="small muted">✓ Thessalonians Pt 8 · 19 MB<br>✓ A Welcome Sight · 13 MB<br>✓ A Notable Nobody · 16 MB</div>
+                <div class="between" style="margin-top:6px;">
+                  <span class="small muted">48 MB used</span>
+                  <span class="pill">manage</span>
+                </div>
+              </div>
+              <div class="box" style="padding:8px 12px;">
+                <span class="small muted">🚗 In the car: control from steering wheel &amp; Now Playing — or subscribe in Apple Podcasts / Spotify for full CarPlay</span>
+              </div>
+              <div class="tabbar">
+                <span><i></i>Home</span><span class="on"><i></i>Sermons</span><span><i></i>Calendar</span><span><i></i>Letters</span><span><i></i>Give</span>
+              </div>
+            </div>
+          </div>
+          <div class="phonecap">Player + downloads <button class="dot" data-note="pwa-2" aria-label="Note 2">2</button></div>
+        </div>
+
+        <div>
+          <div class="phone">
+            <div class="speaker"></div>
+            <div class="pbody">
+              <div class="box new"><span class="tag-new">NEW</span>
+                <span class="lbl">Install Beacon</span>
+                <div class="small muted">Add to Home Screen for downloads, notifications, and full-screen app</div>
+                <span class="btn sm primary" style="margin-top:6px;">Show me how</span>
+              </div>
+              <div class="box">
+                <span class="lbl">Notifications <span class="pchip">P2</span></span>
+                <div class="small">🔔 New letter from [Missionary]<br><span class="muted">2h ago</span></div>
+                <div class="small" style="margin-top:6px;">🔔 VBS starts Monday 9:30am<br><span class="muted">yesterday</span></div>
+              </div>
+              <div class="box">
+                <span class="lbl">My sermons <span class="pchip">P2</span></span>
+                <div class="small muted">☆ favorites · recently played<br>synced to account in <span class="pchip">P3</span></div>
+              </div>
+              <div class="tabbar">
+                <span class="on"><i></i>Home</span><span><i></i>Sermons</span><span><i></i>Calendar</span><span><i></i>Letters</span><span><i></i>Give</span>
+              </div>
+            </div>
+          </div>
+          <div class="phonecap">Install + notifications <button class="dot" data-note="pwa-3" aria-label="Note 3">3</button></div>
+        </div>
+      </div>
+
+      <h2 class="noteshead">Your questions, answered (researched July 2026, sources in docs/research/pwa-findings.md)</h2>
+      <div class="vtable">
+        <div class="vrow"><span class="vhead">Capability</span><span class="vhead">PWA?</span><span class="vhead">The reality</span></div>
+        <div class="vrow"><span>App icon on the CarPlay screen</span><span class="yn no">NO</span><span class="small">CarPlay apps must be native with an Apple-granted entitlement — the very door that kept slamming. No web app can do this.</span></div>
+        <div class="vrow"><span>Control sermons from the car</span><span class="yn yes">YES</span><span class="small">Audio from the installed PWA routes through CarPlay/Bluetooth like any phone audio; the MediaSession API puts title/artwork on the car's Now Playing screen with steering-wheel play/pause/skip. You just tap play on the phone first.</span></div>
+        <div class="vrow"><span>True CarPlay experience</span><span class="yn part">VIA POD</span><span class="small">Publish the sermon RSS to Apple Podcasts (Spotify feed already exists) — those apps have real CarPlay browsing. Zero app-store risk for the church.</span></div>
+        <div class="vrow"><span>Download sermons offline</span><span class="yn yes">YES</span><span class="small">Service worker + on-device storage. Since iOS 17, installed web apps get up to ~60% of the phone's disk, and home-screen apps are exempt from Safari's 7-day cleanup in normal use.</span></div>
+        <div class="vrow"><span>Push notifications</span><span class="yn yes">YES</span><span class="small">iOS 16.4+ (must be installed to home screen — we teach that in-app), Android fully. New letters, event reminders. SMS stays an option for the least-techy members.</span></div>
+        <div class="vrow"><span>App store removal risk</span><span class="yn yes">GONE</span><span class="small">There is no store, no review, no policy exposure. The church owns the whole channel.</span></div>
+      </div>
+
+      <h2 class="noteshead">Design notes</h2>
+      <ol class="notes">
+        <li id="pwa-1"><b>The PWA is the website</b> — one codebase, member-tabbed shell when installed. The five tabs map
+        exactly to your notes: sermons, calendar, letters, give. <span class="pchip">P1</span></li>
+        <li id="pwa-2"><b>Downloads are the native app's killer feature, kept.</b> Explicit ⬇ per sermon, a manager showing
+        storage used, and graceful re-download if the OS ever evicts. The car hint sits right in the player. <span class="pchip">P1–P2</span></li>
+        <li id="pwa-3"><b>iOS has no automatic install prompt</b> — Android does. So the app teaches Add-to-Home-Screen
+        itself, because install unlocks both push and reliable storage on iPhone. <span class="pchip">P1</span></li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('.rail nav button');
+    var screens = document.querySelectorAll('.screen');
+    function show(id) {
+      screens.forEach(function (s) { s.classList.toggle('active', s.id === 's-' + id); });
+      buttons.forEach(function (b) { b.setAttribute('aria-current', b.dataset.s === id ? 'true' : 'false'); });
+      try { history.replaceState(null, '', '#' + id); } catch (e) {}
+      window.scrollTo({ top: 0 });
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { show(b.dataset.s); });
+    });
+    var initial = location.hash.replace('#', '');
+    if (initial && document.getElementById('s-' + initial)) show(initial);
+
+    document.querySelectorAll('.dot[data-note]').forEach(function (d) {
+      d.addEventListener('click', function () {
+        var note = document.getElementById(d.dataset.note);
+        if (!note) return;
+        note.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        note.classList.remove('flash');
+        void note.offsetWidth;
+        note.classList.add('flash');
+      });
+    });
+  })();
+</script>
