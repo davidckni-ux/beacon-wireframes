@@ -150,6 +150,7 @@
   }
   .btn.primary { background: var(--ink); color: var(--surface); }
   .btn.sm { padding: 4px 11px; font-size: 12px; }
+  .btn.play { padding: 9px 22px; font-size: 16px; border-radius: 9px; }
   .pill {
     display: inline-block; font-size: 11px; border: 1px solid var(--wire);
     border-radius: 99px; padding: 2px 10px; color: var(--muted); white-space: nowrap;
@@ -300,7 +301,7 @@
   <aside class="rail">
     <div class="brand">
       <b>Beacon Baptist</b>
-      <span class="sub">Website revamp — wireframes v1</span>
+      <span class="sub">Website revamp — wireframes v1.1</span>
     </div>
     <nav aria-label="Wireframe screens">
       <div class="railgroup">Start</div>
@@ -326,7 +327,8 @@
         <h1>Beacon website revamp — wireframes</h1>
         <p class="purpose">Nine screens covering the revamped website and the PWA that replaces the old
         native app. Grounded in a full audit of the current site (July 2026) and your planning notes.
-        Everything here is structure, not visual design — colors and branding come later.</p>
+        Everything here is structure, not visual design — colors and branding come later.
+        <b>v1.1 — updated Jul 12</b> with first-round feedback from Rick and Connor's notes.</p>
       </header>
 
       <div class="legend">
@@ -361,7 +363,7 @@
 ├── Missionaries          <b>← NEW</b> · directory + letters; zero missions content today
 │   └── Letters archive
 ├── Ministries            · rescue the orphaned /ministries page (currently lorem ipsum)
-└── Give                  · embedded, with give-to-a-missionary  (today: bare Tithe.ly link)</div>
+└── Give                  · Tithe.ly launchpad (per Rick) + give-to-a-missionary funds</div>
 
       <h2 class="noteshead">What the audit found (the short version)</h2>
       <ol class="notes">
@@ -411,10 +413,10 @@
             </div>
           </div>
 
-          <div class="img" style="min-height:210px;">
+          <div class="img" style="min-height:140px;">
             <span class="cap">hero photo — real congregation, not stock</span>
-            <div style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:28px; gap:10px;">
-              <div style="font-size:26px; font-weight:700; background:var(--surface); padding:2px 10px; border-radius:6px;">Your bright future begins in Jesus.</div>
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:16px; gap:7px;">
+              <div style="font-size:21px; font-weight:700; background:var(--surface); padding:2px 10px; border-radius:6px;">Your bright future begins in Jesus.</div>
               <div class="small muted" style="background:var(--surface); padding:2px 10px; border-radius:6px;">An independent, New Testament church in Jupiter, Florida</div>
               <div class="row tight" style="margin-top:6px;">
                 <span class="btn primary">Plan a Visit</span>
@@ -460,10 +462,19 @@
             </div>
           </div>
 
-          <div class="box">
-            <span class="lbl">The Gospel</span>
-            <div class="tl w70"></div><div class="tl w55"></div>
-            <a class="wl small" href="#" onclick="return false">What is the Gospel? →</a>
+          <div class="split">
+            <div class="box">
+              <span class="lbl">The Gospel</span>
+              <div class="tl w70"></div><div class="tl w55"></div>
+              <a class="wl small" href="#" onclick="return false">What is the Gospel? →</a>
+            </div>
+            <div class="box new">
+              <span class="tag-new">NEW</span>
+              <span class="lbl">What the Bible says about a New Testament church</span>
+              <div class="tl w70"></div><div class="tl w55"></div>
+              <a class="wl small" href="#" onclick="return false">Why we're a NT church →</a>
+              <button class="dot" data-note="home-8" aria-label="Note 8">8</button>
+            </div>
           </div>
 
           <div class="box">
@@ -489,15 +500,21 @@
         This strip also becomes the <i>single source of truth</i> for times — today the header and footer already disagree (the header omits Kid's Club). <span class="pchip">P1</span></li>
         <li id="home-3"><b>Keep the headline, fix the CTA.</b> "Your bright future begins in Jesus" stays — it's distinctive.
         But the current hero's primary button bounces to YouTube; here Watch Live opens an on-site watch page so a first-time
-        browser stays in the visit flow. <span class="pchip">P1</span></li>
+        browser stays in the visit flow. Hero trimmed vertically per Rick, so the events strip and latest sermon land
+        above the fold. <span class="pchip">P1</span></li>
         <li id="home-4"><b>Events strip replaces the hand-edited VBS block.</b> Cards pull from the same data that powers
-        screen 5, so Jason updates one place. VBS registration still lands on Breeze — embedded, not bounced. <span class="pchip">P1</span></li>
+        screen 5, so Jason updates one place. VBS registration still lands on Breeze — embedded, not bounced. Per Rick's
+        thin-calendar concern: when special events are scarce, the strip backfills with the weekly rhythm (services,
+        basketball, choir) so it never sits empty. <span class="pchip">P1</span></li>
         <li id="home-5"><b>Latest sermon plays inline.</b> Today there is no player anywhere on the homepage and even the
         sermon list page can't play audio without a click-through. <span class="pchip">P1</span></li>
         <li id="home-6"><b>Missionary letters get a homepage presence</b> for the first time — the old native app was their only
         home. Names/fields are placeholders until we load the real list. <span class="pchip">P1</span></li>
         <li id="home-7"><b>Footer gains a map and an email address</b> — the current site has neither anywhere, and the © line
         still says 2022. <span class="pchip">P1</span></li>
+        <li id="home-8"><b>"What the Bible says about a New Testament church"</b> — from your notes. The current site's
+        identity blurb becomes a short scripture-anchored teaching block beside the Gospel section, linking deeper into
+        About/beliefs. <span class="pchip">P1</span></li>
       </ol>
     </section>
 
@@ -552,6 +569,14 @@
 
           <div class="box new">
             <span class="tag-new">NEW</span>
+            <span class="lbl">Virtual tour</span>
+            <div class="img" style="min-height:120px;"><span class="cap">▶ 60–90s video walkthrough — parking lot → lobby → auditorium → kids wing</span></div>
+            <span class="small muted">see the inside before you ever pull in</span>
+            <button class="dot" data-note="visit-5" aria-label="Note 5">5</button>
+          </div>
+
+          <div class="box new">
+            <span class="tag-new">NEW</span>
             <span class="lbl">Visitor form — embedded on this page</span>
             <div class="row">
               <div class="box" style="padding:8px;"><span class="small muted">Name</span></div>
@@ -579,6 +604,9 @@
         <li id="visit-3"><b>Map, parking, arrival.</b> Today the address exists only as footer text — no map on the entire site. <span class="pchip">P1</span></li>
         <li id="visit-4"><b>Keep Breeze as the backend, lose the bounce.</b> Same form the church already processes,
         embedded so the visitor never leaves a page that looks like Beacon. <span class="pchip">P1</span></li>
+        <li id="visit-5"><b>Virtual tour (your 7/11 note).</b> Walking into an unfamiliar building is the scariest part of a
+        first visit; a short walkthrough video defuses it. Start simple — one steady phone-shot video on the church's YouTube,
+        embedded here. It can grow into a fancier tour later without changing the page. <span class="pchip">P1</span></li>
       </ol>
     </section>
 
@@ -629,7 +657,7 @@
                     <span class="strong">Thessalonians – Watching and Waiting – Part 8</span>
                     <div class="small muted">2 Thessalonians 2 · Jim Blalock · Wed Evening · Jul 8, 2026</div>
                   </div>
-                  <span class="row tight"><span class="btn sm primary">▶</span><span class="pill">42 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
+                  <span class="row tight"><span class="btn play primary">▶</span><span class="pill">42 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
                 </div>
                 <button class="dot" data-note="ser-4" aria-label="Note 4">4</button>
               </div>
@@ -639,7 +667,7 @@
                     <span class="strong">A Welcome Sight</span>
                     <div class="small muted">Psalm 119:74–81 · Jim Blalock · Sunday Morning · Jul 5, 2026</div>
                   </div>
-                  <span class="row tight"><span class="btn sm primary">▶</span><span class="pill">28 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
+                  <span class="row tight"><span class="btn play primary">▶</span><span class="pill">28 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
                 </div>
               </div>
               <div class="box">
@@ -648,7 +676,7 @@
                     <span class="strong">A Notable Nobody</span>
                     <div class="small muted">Acts 19:23–30 · Jason Lowe · Sunday Evening · Jul 5, 2026</div>
                   </div>
-                  <span class="row tight"><span class="btn sm primary">▶</span><span class="pill">35 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
+                  <span class="row tight"><span class="btn play primary">▶</span><span class="pill">35 min</span><span class="pill">⬇</span><span class="pill">☆</span></span>
                 </div>
               </div>
               <div style="text-align:center;"><span class="btn sm">Load more</span></div>
@@ -666,8 +694,8 @@
                 <div class="small muted">Jim Blalock · Andy Blalock · Kevin Besaw · Hugh Black · Jason Lowe</div>
                 <div class="small strong" style="margin-top:8px;">Book</div>
                 <div class="small muted">Psalms · Luke · Acts · Matthew…</div>
-                <div class="small strong" style="margin-top:8px;">Year</div>
-                <div class="small muted">2026 ▾</div>
+                <div class="small strong" style="margin-top:8px;">Date</div>
+                <div class="small muted">Year ▾ · Month ▾ · Day ▾</div>
               </div>
               <div class="box new">
                 <span class="tag-new">NEW</span>
@@ -691,10 +719,12 @@
         <li id="ser-3"><b>Series become first-class.</b> Featured current series with a follow action;
         each series gets its own page collecting the whole sequence. <span class="pchip">P1</span></li>
         <li id="ser-4"><b>Play, download, favorite — right on the card.</b> Today the list page can't play anything;
-        the ⬇ maps to PWA offline downloads and ☆ to favorites (device-local first, synced to accounts in P3). <span class="pchip">P1–P2</span></li>
+        the ⬇ maps to PWA offline downloads and ☆ to favorites (device-local first, synced to accounts in P3). Play is now
+        the biggest tap target on every card, per your note. <span class="pchip">P1–P2</span></li>
         <li id="ser-5"><b>Fix the taxonomy: "Sunday Morning" isn't a series.</b> The current Series filter mixes service times
         with real teaching series (and its counts are wrong — inflated beyond the archive size by duplicated lookup values in the data).
-        Split Service vs Series, add Year, and add your notes' Tags/Topics. <span class="pchip">P1</span></li>
+        Split Service vs Series, add a real date filter (year → month → day, from your notes — handy for "that sermon two
+        Sundays ago"), and add your notes' Tags/Topics. <span class="pchip">P1</span></li>
         <li id="ser-6"><b>The podcast feed is the CarPlay answer.</b> The church already publishes to Spotify; adding
         Apple Podcasts + a clean RSS means sermons show up in real CarPlay apps without app-store risk. <span class="pchip">P1</span></li>
       </ol>
@@ -753,6 +783,14 @@
                 <span class="tag-new">NEW</span>
                 <span class="lbl">Ask about this sermon ✦</span>
                 <div class="box" style="padding:7px 10px;"><span class="small muted">"Where does he explain v. 76?"</span></div>
+                <div class="box" style="padding:7px 10px; margin-top:7px;">
+                  <span class="small strong">Answer — from this transcript only</span>
+                  <div class="tl w85"></div><div class="tl w70"></div>
+                  <div class="row tight" style="margin-top:6px;">
+                    <span class="pill">▶ hear it — 14:32</span>
+                    <span class="pill">AI summary — check the source</span>
+                  </div>
+                </div>
                 <button class="dot" data-note="det-4" aria-label="Note 4">4</button>
               </div>
               <div class="box">
@@ -781,8 +819,13 @@
         the PWA offline action), favorite, and share. <span class="pchip">P1</span></li>
         <li id="det-3"><b>The transcripts already exist</b> — every sermon has a machine transcription in Airtable that's currently
         only used as hidden search fodder. Surfacing it synced to the audio is what turns a listen into a study session. <span class="pchip">P1</span></li>
-        <li id="det-4"><b>Digital commentary, scoped to one sermon.</b> The same agentic search from screen 3, but grounded in this
-        transcript — your notes' "digital commentary with transcripts." <span class="pchip">P2</span></li>
+        <li id="det-4"><b>How the AI answers work — the three questions from your notes.</b> <i>Where do answers come from?</i>
+        Only the sermon transcripts (this one's, or the archive's on screen 3) — never the open internet. <i>Where do they take
+        you?</i> Every answer quotes the transcript and links the timestamp — one tap jumps the audio to the pastor explaining it
+        himself. <i>How do you verify they're good?</i> That's what the citations are for: the receipt is always one tap away,
+        summaries are clearly labeled AI-generated, and when the transcript doesn't cover a question the tool says "not covered
+        in this sermon" instead of guessing. So yes — AI summarizes the pastor's explanation, but only from his own transcribed
+        words, never its own theology. <span class="pchip">P2</span></li>
         <li id="det-5"><b>Related-by-passage is nearly free</b> — scripture references are already structured data in Airtable,
         so "other sermons on Psalm 119" is a query, not a project. <span class="pchip">P1</span></li>
       </ol>
@@ -834,7 +877,7 @@
           </div>
 
           <div class="box">
-            <span class="lbl">Week of July 13</span>
+            <span class="lbl">Week of July 13 <button class="dot" data-note="ev-7" aria-label="Note 7">7</button></span>
             <div class="between" style="border-bottom:1px solid var(--wire-soft); padding:8px 0;">
               <span><span class="mono small strong">JUL 16</span> &nbsp; <span class="strong small">Men's Basketball</span> <span class="small muted">· 7pm · Gym</span></span>
               <span class="row tight"><span class="btn sm">RSVP</span><button class="dot" data-note="ev-4" aria-label="Note 4">4</button></span>
@@ -889,6 +932,11 @@
         the calendar is for the special stuff. Prevents "Sunday Morning" clutter — the same mistake the sermon Series filter makes today. <span class="pchip">P1</span></li>
         <li id="ev-6"><b>RSVP without accounts, reminders later.</b> Name + contact is enough at launch; SMS/push reminders arrive
         in P2, and RSVPs link to accounts in P3. <span class="pchip">P1–P3</span></li>
+        <li id="ev-7"><b>The thin-calendar plan — Rick's flag: "we don't have that many events."</b> Recurring ministry rhythms
+        (basketball, choir, fellowships, prayer meeting) live in the list as auto-repeating entries, so the next seven days always
+        show life even when only one special event exists. List is the default view; the month grid is secondary and only earns its
+        place when there's enough to fill it. Jason maintains one small events table — recurring entries mean most weeks need zero
+        editing. <span class="pchip">P1</span></li>
       </ol>
     </section>
 
@@ -990,8 +1038,8 @@
     <section class="screen" id="s-give">
       <header>
         <h1>7 · Give</h1>
-        <p class="purpose">Today the Give page is one outbound Tithe.ly link. Keep Tithe.ly as the processor,
-        but make giving feel like Beacon — and add designated missionary giving.</p>
+        <p class="purpose">Per Rick: giving stays on Tithe.ly, as it works today. This page's job is simply to present
+        the funds clearly — including give-to-a-missionary — and hand off cleanly.</p>
       </header>
 
       <div class="frame">
@@ -1000,22 +1048,19 @@
 
           <div class="split">
             <div class="box">
-              <span class="lbl">Give online — embedded, stays on this page</span>
+              <span class="lbl">Give online — via Tithe.ly, as today</span>
               <div class="row tight" style="margin-bottom:8px;">
                 <span class="btn sm primary">General Fund</span>
                 <span class="btn sm">Missions</span>
                 <span class="btn sm" style="border-style:dashed; border-color:var(--accent);">A missionary ▾</span>
                 <button class="dot" data-note="giv-1" aria-label="Note 1">1</button>
               </div>
-              <div class="row">
-                <div class="box" style="padding:8px;"><span class="small muted">$ amount</span></div>
-                <div class="box" style="padding:8px;"><span class="small muted">One-time ▾ / weekly / monthly</span></div>
-              </div>
+              <div class="tl w70"></div><div class="tl w55"></div>
               <div class="row tight" style="margin-top:8px;">
-                <span class="btn primary">Give</span>
-                <span class="pill"> Pay</span><span class="pill">G Pay</span>
+                <span class="btn primary">Give on Tithe.ly ↗</span>
                 <button class="dot" data-note="giv-2" aria-label="Note 2">2</button>
               </div>
+              <span class="small muted">opens the church's existing Tithe.ly account with the chosen fund pre-selected</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:10px;">
               <div class="box">
@@ -1037,8 +1082,9 @@
       <ol class="notes">
         <li id="giv-1"><b>Fund designation up front</b> — General, Missions, or a specific missionary (linked straight from their
         card on screen 6). Backed by Tithe.ly funds, so bookkeeping doesn't change. <span class="pchip">P1</span></li>
-        <li id="giv-2"><b>Embed, don't redirect.</b> Research is blunt on this: bouncing to a third-party domain right at the
-        moment of payment erodes trust. Tithe.ly offers an embeddable widget; recurring is promoted as the default. <span class="pchip">P1</span></li>
+        <li id="giv-2"><b>Keeping Tithe.ly as-is — Rick's call.</b> The page becomes a friendly, branded launchpad: pick a fund,
+        land on Tithe.ly with it pre-selected. If giving friction ever becomes a real problem, Tithe.ly's embeddable widget is a
+        drop-in upgrade we can revisit — nothing here would need rework. <span class="pchip">P1</span></li>
         <li id="giv-3"><b>Every giving channel on one page</b> — including the physical ones. A QR code to this page can live in
         the bulletin. <span class="pchip">P1</span></li>
       </ol>
