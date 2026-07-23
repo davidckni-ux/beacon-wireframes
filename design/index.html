@@ -189,13 +189,16 @@
   .sH .nav .logo { font-weight: 700; letter-spacing: 0.2em; font-size: 14px; }
   .sH .nav .logo::before { content: "●"; color: #F2B441; margin-right: 9px; font-size: 10px; }
   .sH .nav a { color: #97ADC2; font-size: 13px; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-  .sH .nav a:hover, .sH .nav a:focus-visible { color: #F4F0E6; outline: none; }
+  .sH .nav a:hover, .sH .nav a:focus-visible { color: #F4F0E6; }
+  .sH :focus-visible { outline: 2px solid #F2B441; outline-offset: 3px; }
+  .sI :focus-visible { outline: 2px solid #1E7A8C; outline-offset: 3px; }
   .sH .nav .give { margin-left: auto; color: #F2B441; border: 1px solid rgba(242,180,65,0.45); border-radius: 6px; padding: 8px 20px; font-weight: 600; transition: background 0.25s, color 0.25s; }
   .sH .nav .give:hover { background: #F2B441; color: #0A1420; }
   .sH .hero { position: relative; overflow: hidden; padding: 78px 32px 60px; background: radial-gradient(120% 100% at 80% -20%, #16293E 0%, #0A1420 58%); }
-  .sH .beam { position: absolute; top: -640px; right: -200px; width: 1300px; height: 1300px; border-radius: 50%; pointer-events: none; background: conic-gradient(from 150deg at 50% 50%, rgba(242,180,65,0) 0deg, rgba(242,180,65,0.05) 6deg, rgba(242,180,65,0.24) 14deg, rgba(242,180,65,0.05) 24deg, rgba(242,180,65,0) 32deg); animation: sHsweep 26s linear infinite; }
+  .sH .beam { position: absolute; top: -722px; right: -680px; width: 1600px; height: 1600px; border-radius: 50%; pointer-events: none; background: conic-gradient(from 150deg at 50% 50%, rgba(242,180,65,0) 0deg, rgba(242,180,65,0.05) 6deg, rgba(242,180,65,0.24) 14deg, rgba(242,180,65,0.05) 24deg, rgba(242,180,65,0) 32deg, rgba(242,180,65,0) 180deg, rgba(242,180,65,0.09) 192deg, rgba(242,180,65,0.09) 200deg, rgba(242,180,65,0) 212deg); animation: sHsweep 26s linear infinite; }
   @keyframes sHsweep { to { transform: rotate(360deg); } }
-  .sH .lamp { position: absolute; top: 74px; right: 116px; width: 7px; height: 7px; border-radius: 50%; background: #FFE9B8; box-shadow: 0 0 18px 6px rgba(242,180,65,0.45); }
+  .sH .lamp { position: absolute; top: 74px; right: 116px; width: 7px; height: 7px; border-radius: 50%; background: #FFE9B8; box-shadow: 0 0 18px 6px rgba(242,180,65,0.45); animation: sHflash 26s linear infinite; }
+  @keyframes sHflash { 0%, 88%, 100% { box-shadow: 0 0 18px 6px rgba(242,180,65,0.45); } 92%, 94% { box-shadow: 0 0 34px 14px rgba(255,233,184,0.9); } }
   .sH .hero > .in { position: relative; z-index: 2; max-width: 560px; }
   .sH .in > * { animation: sHup 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
   .sH .in > *:nth-child(2) { animation-delay: 0.08s; }
@@ -209,28 +212,74 @@
   .sH .hero p { color: #97ADC2; font-size: 16px; line-height: 1.6; max-width: 42ch; }
   .sH .ctas { margin-top: 28px; display: flex; gap: 14px; }
   .sH .btnp { background: #F2B441; color: #0A1420; border: none; border-radius: 6px; padding: 14px 30px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s; }
-  .sH .btnp:hover, .sH .btnp:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 26px 0 rgba(242,180,65,0.3); outline: none; }
+  .sH .btnp:hover, .sH .btnp:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 26px 0 rgba(242,180,65,0.3); }
   .sH .btns { background: none; color: #F4F0E6; border: 1px solid #2C4560; border-radius: 6px; padding: 14px 24px; font-size: 14.5px; font-weight: 500; cursor: pointer; transition: border-color 0.25s; }
-  .sH .btns:hover, .sH .btns:focus-visible { border-color: #97ADC2; outline: none; }
+  .sH .btns:hover, .sH .btns:focus-visible { border-color: #97ADC2; }
   .sH .times { margin-top: 38px; padding-top: 18px; border-top: 1px solid rgba(242,180,65,0.25); display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; color: #97ADC2; }
   .sH .times b { color: #F4F0E6; font-weight: 600; }
   .sH .body { padding: 30px 28px 10px; display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; position: relative; z-index: 2; }
   .sH .card { background: #101D2E; border: 1px solid #22384F; border-radius: 10px; padding: 22px 24px; display: flex; gap: 18px; align-items: center; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s; }
   .sH .card:hover { transform: translateY(-3px); border-color: rgba(242,180,65,0.5); box-shadow: 0 14px 30px rgba(4,10,18,0.5); }
   .sH .play { width: 54px; height: 54px; border-radius: 50%; border: 2px solid #F2B441; flex: none; display: flex; align-items: center; justify-content: center; color: #F2B441; font-size: 15px; background: none; cursor: pointer; transition: background 0.25s, color 0.25s; }
-  .sH .card:hover .play, .sH .play:focus-visible { background: #F2B441; color: #0A1420; outline: none; }
+  .sH .card:hover .play, .sH .play:focus-visible { background: #F2B441; color: #0A1420; }
   .sH .date { width: 54px; height: 54px; border-radius: 10px; background: rgba(242,180,65,0.12); border: 1px solid rgba(242,180,65,0.4); flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #F2B441; }
   .sH .date b { font-size: 17px; line-height: 1; }
   .sH .date span { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; }
   .sH .card .k { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #F2B441; font-weight: 700; margin-bottom: 6px; }
   .sH .card h3 { font-size: 18px; margin-bottom: 3px; }
   .sH .card p { font-size: 13px; color: #97ADC2; }
-  .sH .anywhere { padding: 20px 28px 30px; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #5E7690; }
+  .sH .anywhere { padding: 20px 28px 30px; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #6E8AA6; }
   .sH .anywhere b { color: #97ADC2; font-weight: 600; }
   @media (prefers-reduced-motion: reduce) {
-    .sH .beam { animation: none; }
-    .sH .in > * { animation: none; }
+    .sH .beam { animation: none; transform: rotate(64deg); }
+    .sH .lamp { animation: none; }
+    .sH .in > *, .sI .in > * { animation: none; }
+    .sI .glass { animation: none; }
   }
+
+  /* ============ H-DAY · LIGHTHOUSE DAYLIGHT TWIN ============ */
+  .sI { background: #F7FBFC; color: #14232E; font-family: "Avenir Next", "Helvetica Neue", sans-serif; }
+  .sI .nav { display: flex; align-items: center; gap: 24px; padding: 17px 28px; }
+  .sI .nav .logo { font-weight: 700; letter-spacing: 0.2em; font-size: 14px; }
+  .sI .nav .logo::before { content: "●"; color: #E8B23A; margin-right: 9px; font-size: 10px; }
+  .sI .nav a { color: #4E6572; font-size: 13px; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .sI .nav a:hover, .sI .nav a:focus-visible { color: #14232E; }
+  .sI .nav .give { margin-left: auto; color: #14232E; border: 1px solid #E8B23A; border-radius: 6px; padding: 8px 20px; font-weight: 600; transition: background 0.25s; }
+  .sI .nav .give:hover { background: #E8B23A; }
+  .sI .hero { position: relative; overflow: hidden; padding: 78px 240px 60px 32px; background: linear-gradient(180deg, #EDF6F8 0%, #F7FBFC 70%); }
+  .sI .lh { position: absolute; right: 26px; top: 16px; bottom: -12px; height: auto; pointer-events: none; }
+  .sI .in { position: relative; z-index: 2; max-width: 520px; }
+  .sI .in > * { animation: sHup 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+  .sI .in > *:nth-child(2) { animation-delay: 0.08s; }
+  .sI .in > *:nth-child(3) { animation-delay: 0.16s; }
+  .sI .in > *:nth-child(4) { animation-delay: 0.24s; }
+  .sI .in > *:nth-child(5) { animation-delay: 0.34s; }
+  .sI .glass { animation: sIglass 7s ease-in-out infinite; }
+  @keyframes sIglass { 50% { opacity: 0.72; } }
+  .sI .eyebrow { color: #1E7A8C; font-size: 11.5px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 600; }
+  .sI .hero h2 { font-size: 46px; font-weight: 700; line-height: 1.06; letter-spacing: -0.02em; margin: 18px 0 14px; max-width: 15ch; text-wrap: balance; }
+  .sI .hero h2 b { color: #C1442E; }
+  .sI .hero p { color: #4E6572; font-size: 16px; line-height: 1.6; max-width: 42ch; }
+  .sI .ctas { margin-top: 28px; display: flex; gap: 14px; }
+  .sI .btnp { background: #E8B23A; color: #14232E; border: none; border-radius: 6px; padding: 14px 30px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s; }
+  .sI .btnp:hover, .sI .btnp:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(193,68,46,0.22); }
+  .sI .btns { background: none; color: #14232E; border: 1px solid #C3D6DC; border-radius: 6px; padding: 14px 24px; font-size: 14.5px; font-weight: 500; cursor: pointer; transition: border-color 0.25s; }
+  .sI .btns:hover, .sI .btns:focus-visible { border-color: #4E6572; }
+  .sI .times { margin-top: 38px; padding-top: 18px; border-top: 1px solid #D8E6EA; display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; color: #4E6572; }
+  .sI .times b { color: #14232E; font-weight: 600; }
+  .sI .body { padding: 30px 28px 10px; display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; }
+  .sI .card { background: #fff; border: 1px solid #DEE9EE; border-radius: 10px; padding: 22px 24px; display: flex; gap: 18px; align-items: center; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s; }
+  .sI .card:hover { transform: translateY(-3px); border-color: #E8B23A; box-shadow: 0 12px 26px rgba(20,35,46,0.1); }
+  .sI .play { width: 54px; height: 54px; border-radius: 50%; border: 2px solid #C1442E; flex: none; display: flex; align-items: center; justify-content: center; color: #C1442E; font-size: 15px; background: none; cursor: pointer; transition: background 0.25s, color 0.25s; }
+  .sI .card:hover .play, .sI .play:focus-visible { background: #C1442E; color: #fff; }
+  .sI .date { width: 54px; height: 54px; border-radius: 10px; background: #FBF3DE; border: 1px solid #E8B23A; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8A621A; }
+  .sI .date b { font-size: 17px; line-height: 1; }
+  .sI .date span { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .sI .card .k { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #1E7A8C; font-weight: 700; margin-bottom: 6px; }
+  .sI .card h3 { font-size: 18px; margin-bottom: 3px; }
+  .sI .card p { font-size: 13px; color: #4E6572; }
+  .sI .anywhere { padding: 20px 28px 30px; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #596F7C; }
+  .sI .anywhere b { color: #4E6572; font-weight: 600; }
 
   @media (min-width: 1120px) {
     .plates { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1560px; margin: 0 auto; }
@@ -240,12 +289,20 @@
     .sC .hero h2, .sD .hero h2, .sE .hero h2, .sF .hero h2 { font-size: 31px; }
     .sG .hero h2 { font-size: 34px; }
     .sH .hero h2 { font-size: 36px; }
+    .sI .hero h2 { font-size: 34px; }
   }
 
   @media (max-width: 640px) {
     .sD .body { grid-template-columns: 1fr; }
     .sH .body { grid-template-columns: 1fr; }
     .sH .hero h2 { font-size: 33px; }
+    .sH .lamp { top: 26px; right: 22px; }
+    .sH .nav, .sI .nav { flex-wrap: wrap; gap: 10px 16px; }
+    .sH .nav .give, .sI .nav .give { margin-left: 0; }
+    .sI .body { grid-template-columns: 1fr; }
+    .sI .hero { padding: 64px 24px 48px; }
+    .sI .hero h2 { font-size: 33px; }
+    .sI .lh { opacity: 0.16; }
     .sA .body, .sC .body { grid-template-columns: 1fr; }
     .sA .hero h2 { font-size: 30px; }
     .sA .nav { flex-wrap: wrap; gap: 12px; }
@@ -580,6 +637,88 @@
     <div class="hero">
       <div class="beam"></div>
       <div class="lamp"></div>
+      <div class="in">
+        <div class="eyebrow">Beacon Baptist Church · Jupiter, Florida</div>
+        <h2>Your bright future begins in <b>Jesus.</b></h2>
+        <p>"For I am not ashamed of the gospel of Christ: for it is the power of God
+        unto salvation." — Romans 1:16</p>
+        <div class="ctas">
+          <button class="btnp">Plan a Visit</button>
+          <button class="btns">Watch Live</button>
+        </div>
+        <div class="times">
+          <span><b>Sun</b> 10am School</span>
+          <span><b>Sun</b> 11am Worship</span>
+          <span><b>Sun</b> 6:30pm Evening</span>
+          <span><b>Wed</b> 7pm Midweek</span>
+        </div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="card">
+        <button class="play" aria-label="Play latest sermon">▶</button>
+        <div>
+          <div class="k">Latest Sermon</div>
+          <h3>A Welcome Sight</h3>
+          <p>Psalm 119:74–81 · Jim Blalock · 28 min</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="date"><b>13</b><span>Jul</span></div>
+        <div>
+          <div class="k">This Week</div>
+          <h3>VBS 2026</h3>
+          <p>Mon–Fri · 9:30am–12:30pm · 42 spots left</p>
+        </div>
+      </div>
+    </div>
+    <div class="anywhere">Listen anywhere — <b>Apple Podcasts · Spotify · the Beacon app · your car</b></div>
+  </div>
+
+  <div class="plate-label" style="padding-top:20px;">
+    <b>H · Daylight twin</b>
+    <span>same system by day — when the beam can't glow, the tower carries the brand</span>
+  </div>
+  <div class="board sI">
+    <div class="nav">
+      <span class="logo">BEACON</span>
+      <a href="#" onclick="return false">Visit</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missionaries</a>
+      <a class="give" href="#" onclick="return false">Give</a>
+    </div>
+    <div class="hero">
+      <svg class="lh" viewBox="0 0 210 470" aria-hidden="true">
+        <defs>
+          <linearGradient id="beamR" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#E8B23A" stop-opacity="0.3"/>
+            <stop offset="1" stop-color="#E8B23A" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="beamL" x1="1" y1="0" x2="0" y2="0">
+            <stop offset="0" stop-color="#E8B23A" stop-opacity="0.22"/>
+            <stop offset="1" stop-color="#E8B23A" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="70" r="48" fill="#E8B23A" opacity="0.16"/>
+        <polygon points="118,92 210,62 210,118" fill="url(#beamR)"/>
+        <polygon points="82,92 0,68 0,114" fill="url(#beamL)"/>
+        <rect x="98" y="40" width="4" height="26" fill="#1E2B36"/>
+        <path d="M78 80 Q100 48 122 80 Z" fill="#1E2B36"/>
+        <rect x="82" y="80" width="36" height="30" fill="#1E2B36"/>
+        <rect x="89" y="86" width="22" height="20" rx="2" fill="#F2B441" class="glass"/>
+        <rect x="72" y="96" width="56" height="2" fill="#1E2B36"/>
+        <rect x="72.5" y="96" width="2.5" height="18" fill="#1E2B36"/>
+        <rect x="125" y="96" width="2.5" height="18" fill="#1E2B36"/>
+        <rect x="66" y="110" width="68" height="10" rx="2" fill="#FFFFFF"/>
+        <rect x="86" y="120" width="28" height="16" fill="#1E2B36"/>
+        <polygon points="80,136 120,136 131,452 69,452" fill="#C1442E"/>
+        <polygon points="102,136 120,136 131,452 104,452" fill="#A83A26"/>
+        <rect x="96" y="180" width="7" height="13" rx="3.5" fill="#F7E9D8"/>
+        <rect x="96" y="252" width="7" height="13" rx="3.5" fill="#F7E9D8"/>
+        <rect x="96" y="324" width="7" height="13" rx="3.5" fill="#F7E9D8"/>
+        <rect x="48" y="452" width="104" height="18" rx="3" fill="#FFFFFF"/>
+      </svg>
       <div class="in">
         <div class="eyebrow">Beacon Baptist Church · Jupiter, Florida</div>
         <h2>Your bright future begins in <b>Jesus.</b></h2>
