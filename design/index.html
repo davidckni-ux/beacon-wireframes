@@ -1,0 +1,514 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beacon — Design Tasting</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #21242a; color: #e8e6e1; font-family: "Avenir Next", -apple-system, sans-serif; padding: 36px 16px 80px; }
+  .intro { max-width: 720px; margin: 0 auto 34px; }
+  .intro h1 { font-size: 22px; margin-bottom: 6px; }
+  .intro p { color: #a7abb2; font-size: 14.5px; line-height: 1.55; }
+  .plate { max-width: 780px; margin: 0 auto 48px; }
+  .plate-label { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px; padding: 0 4px 10px; }
+  .plate-label b { font-size: 16px; letter-spacing: 0.02em; }
+  .plate-label span { font-size: 12.5px; color: #a7abb2; }
+  .board { border-radius: 10px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.35); }
+
+  /* ============ A · THE SANCTUARY ============ */
+  .sA { background: #F6F0E3; color: #2A2118; font-family: "Iowan Old Style", Palatino, Georgia, serif; }
+  .sA .nav { background: #5A2130; display: flex; align-items: center; gap: 22px; padding: 14px 26px; }
+  .sA .nav .logo { color: #F6F0E3; font-family: Baskerville, Georgia, serif; font-size: 17px; letter-spacing: 0.02em; }
+  .sA .nav a { color: #E4CFA6; font-family: "Avenir Next", sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; position: relative; padding-top: 4px; }
+  .sA .nav a.here { color: #F6F0E3; }
+  .sA .nav a.here::before { content: ""; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 10px; height: 22px; background: #B48F3F; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%); }
+  .sA .nav .give { margin-left: auto; border: 1px solid #B48F3F; padding: 6px 14px; }
+  .sA .hero { background: #5A2130; padding: 48px 26px 42px; text-align: center; border-top: 1px solid #7A3346; }
+  .sA .hero .eyebrow { color: #B48F3F; font-family: "Avenir Next", sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .sA .hero .eyebrow::before, .sA .hero .eyebrow::after { content: "———"; letter-spacing: -2px; margin: 0 12px; color: #7A3346; }
+  .sA .hero h2 { font-family: Baskerville, Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1.15; color: #F6F0E3; margin: 18px auto 10px; max-width: 17ch; text-wrap: balance; }
+  .sA .hero .sub { color: #D9BFC7; font-style: italic; font-size: 16px; }
+  .sA .hero .ctas { margin-top: 26px; display: flex; gap: 12px; justify-content: center; }
+  .sA .btnp { background: #B48F3F; color: #2A2118; font-family: "Avenir Next", sans-serif; font-size: 12.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 26px; border: none; }
+  .sA .btns { background: none; color: #F6F0E3; border: 1px solid #9A6B78; font-family: "Avenir Next", sans-serif; font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 22px; }
+  .sA .hymnboard { background: #24211C; padding: 14px 26px; display: flex; justify-content: center; gap: 26px; flex-wrap: wrap; }
+  .sA .hymnboard span { color: #EFE6D2; font-family: "Avenir Next", sans-serif; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; }
+  .sA .hymnboard b { color: #B48F3F; font-weight: 600; }
+  .sA .body { padding: 34px 26px 38px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; }
+  .sA .plaque { font-family: "Avenir Next", sans-serif; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #8A6D2F; border-bottom: 1px solid #C9B98F; padding-bottom: 7px; margin-bottom: 14px; }
+  .sA .sermon { background: #FDFAF2; border: 1px solid #DACFAF; padding: 20px 22px; position: relative; }
+  .sA .sermon::after { content: ""; position: absolute; top: 0; right: 22px; width: 12px; height: 34px; background: #5A2130; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%); }
+  .sA .sermon h3 { font-family: Baskerville, Georgia, serif; font-size: 21px; font-weight: 500; }
+  .sA .sermon .ref { font-style: italic; color: #6B5A44; margin: 4px 0 12px; font-size: 14px; }
+  .sA .sermon .row { display: flex; gap: 10px; align-items: center; font-family: "Avenir Next", sans-serif; font-size: 12px; }
+  .sA .sermon .play { background: #5A2130; color: #F6F0E3; padding: 8px 18px; letter-spacing: 0.08em; }
+  .sA .aside p { font-size: 14.5px; line-height: 1.65; color: #4A3D2E; }
+
+  /* ============ B · THE FAMILY BIBLE ============ */
+  .sB { background: #F8F4E9; color: #262019; font-family: "Iowan Old Style", Palatino, Georgia, serif; }
+  .sB .band { background: #2E4636; padding: 16px 26px; display: flex; align-items: center; gap: 20px; }
+  .sB .band .logo { color: #F8F4E9; font-size: 16px; letter-spacing: 0.06em; font-variant: small-caps; }
+  .sB .band a { color: #C4A15A; font-size: 13px; text-decoration: none; font-variant: small-caps; letter-spacing: 0.06em; }
+  .sB .band .give { margin-left: auto; border: 1px solid #C4A15A; padding: 5px 14px; }
+  .sB .hero { padding: 46px 26px 38px; text-align: center; }
+  .sB .frame { max-width: 560px; margin: 0 auto; border: 3px double #C4A15A; padding: 34px 28px 30px; }
+  .sB .eyebrow { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #6B5B3E; }
+  .sB h2 { font-size: 36px; font-weight: 500; line-height: 1.2; margin: 16px auto 8px; max-width: 18ch; text-wrap: balance; }
+  .sB h2 .rl { color: #A6392F; }
+  .sB .verse { font-style: italic; font-size: 15px; color: #55452E; }
+  .sB .verse sup { color: #A6392F; font-style: normal; font-size: 10px; }
+  .sB .ctas { margin-top: 24px; display: flex; gap: 12px; justify-content: center; }
+  .sB .btnp { background: #A6392F; color: #F8F4E9; font-size: 14px; padding: 11px 26px; border: none; font-family: inherit; font-variant: small-caps; letter-spacing: 0.08em; }
+  .sB .btns { background: none; border: 1px solid #8A7A55; color: #262019; font-size: 14px; padding: 11px 22px; font-family: inherit; font-variant: small-caps; letter-spacing: 0.08em; }
+  .sB .times { border-top: 1px solid #D8CBA8; margin-top: 30px; padding-top: 14px; font-size: 14px; color: #55452E; }
+  .sB .times b { color: #262019; font-weight: 600; }
+  .sB .body { padding: 6px 26px 40px; max-width: 620px; margin: 0 auto; }
+  .sB .chap { text-align: center; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #6B5B3E; margin: 22px 0 14px; }
+  .sB .chap::before, .sB .chap::after { content: "❧"; color: #C4A15A; margin: 0 10px; letter-spacing: 0; }
+  .sB .sermon { display: flex; gap: 16px; align-items: baseline; border-bottom: 1px solid #E2D7B8; padding: 12px 4px; }
+  .sB .sermon .num { color: #A6392F; font-size: 13px; min-width: 26px; }
+  .sB .sermon h3 { font-size: 18px; font-weight: 500; flex: 1; }
+  .sB .sermon .meta { font-style: italic; font-size: 13px; color: #6B5B3E; }
+  .sB .sermon a { color: #A6392F; font-size: 14px; text-decoration: none; font-variant: small-caps; }
+
+  /* ============ C · PLAY IT STRAIGHT ============ */
+  .sC { background: #ffffff; color: #333; font-family: "Avenir Next", "Helvetica Neue", sans-serif; }
+  .sC .nav { display: flex; align-items: center; gap: 22px; padding: 16px 26px; }
+  .sC .nav .logo { font-weight: 700; font-size: 16px; color: #1d2733; }
+  .sC .nav a { color: #5a6572; font-size: 13.5px; text-decoration: none; }
+  .sC .nav .give { margin-left: auto; background: #2F6EB5; color: #fff; border-radius: 999px; padding: 8px 18px; font-size: 13px; font-weight: 600; }
+  .sC .hero { position: relative; background: linear-gradient(160deg, #6B7683, #47505B); padding: 74px 34px; color: #fff; }
+  .sC .hero .tag { position: absolute; top: 12px; right: 14px; font-size: 10px; letter-spacing: 0.08em; opacity: 0.55; }
+  .sC .hero h2 { font-size: 34px; font-weight: 700; max-width: 18ch; line-height: 1.2; }
+  .sC .hero p { margin: 10px 0 22px; opacity: 0.85; font-size: 15.5px; }
+  .sC .btnp { background: #2F6EB5; color: #fff; border: none; border-radius: 999px; padding: 12px 26px; font-size: 14px; font-weight: 600; }
+  .sC .btns { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 999px; padding: 12px 22px; font-size: 14px; margin-left: 10px; }
+  .sC .strip { background: #F2F5F8; padding: 12px 26px; font-size: 13.5px; color: #4a5560; text-align: center; }
+  .sC .body { padding: 28px 26px 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sC .card { border: 1px solid #E3E8ED; border-radius: 14px; padding: 20px; box-shadow: 0 2px 10px rgba(20,40,70,0.06); }
+  .sC .card .k { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #7c8792; margin-bottom: 8px; }
+  .sC .card h3 { font-size: 17px; color: #1d2733; margin-bottom: 4px; }
+  .sC .card p { font-size: 13.5px; color: #5a6572; }
+  .sC .card .link { display: inline-block; margin-top: 10px; color: #2F6EB5; font-size: 13.5px; font-weight: 600; }
+
+  /* ============ D · COASTAL LIGHT ============ */
+  .sD { background: #FBFDFD; color: #17313A; font-family: "Avenir Next", "Helvetica Neue", sans-serif; }
+  .sD .nav { display: flex; align-items: center; gap: 22px; padding: 15px 26px; border-bottom: 1px solid #DCEBEE; }
+  .sD .nav .logo { font-weight: 700; letter-spacing: 0.18em; font-size: 14px; color: #17313A; }
+  .sD .nav .logo::before { content: "●"; color: #E8B23A; margin-right: 8px; font-size: 11px; }
+  .sD .nav a { color: #3E6672; font-size: 13px; text-decoration: none; font-weight: 500; }
+  .sD .nav .give { margin-left: auto; background: #1E7A8C; color: #fff; padding: 8px 18px; border-radius: 4px; font-weight: 600; font-size: 13px; }
+  .sD .hero { position: relative; overflow: hidden; padding: 58px 30px 50px; background: linear-gradient(180deg, #F1F8F9, #FBFDFD); }
+  .sD .hero::before { content: ""; position: absolute; top: -40%; left: 50%; width: 80%; height: 180%; background: linear-gradient(115deg, rgba(232,178,58,0) 0%, rgba(232,178,58,0.34) 45%, rgba(232,178,58,0) 80%); transform: rotate(9deg); pointer-events: none; }
+  .sD .eyebrow { color: #1E7A8C; font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; }
+  .sD .hero h2 { font-size: 41px; font-weight: 700; line-height: 1.12; max-width: 16ch; margin: 14px 0 10px; letter-spacing: -0.015em; }
+  .sD .hero h2 em { font-style: normal; color: #1E7A8C; }
+  .sD .hero p { color: #3E6672; font-size: 15.5px; max-width: 44ch; }
+  .sD .ctas { margin-top: 24px; display: flex; gap: 12px; }
+  .sD .btnp { background: #1E7A8C; color: #fff; border: none; border-radius: 4px; padding: 12px 26px; font-size: 14px; font-weight: 600; }
+  .sD .btns { background: none; color: #17313A; border: 1.5px solid #C8DDE2; border-radius: 4px; padding: 12px 22px; font-size: 14px; font-weight: 500; }
+  .sD .times { display: flex; gap: 22px; flex-wrap: wrap; padding: 14px 30px; border-top: 1px solid #DCEBEE; font-size: 13px; color: #3E6672; }
+  .sD .times b { color: #17313A; }
+  .sD .times i { font-style: normal; color: #E8B23A; margin-right: 6px; }
+  .sD .body { padding: 26px 30px 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sD .card { border: 1px solid #DCEBEE; border-radius: 6px; padding: 20px; }
+  .sD .card .k { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #1E7A8C; font-weight: 700; margin-bottom: 8px; }
+  .sD .card h3 { font-size: 17px; margin-bottom: 4px; }
+  .sD .card p { font-size: 13.5px; color: #3E6672; }
+  .sD .card .link { display: inline-block; margin-top: 10px; color: #B07E17; font-size: 13.5px; font-weight: 600; }
+
+  /* ============ E · GOLDEN HOUR ============ */
+  .sE { background: #FAF7F2; color: #2B2436; font-family: "Avenir Next", "Helvetica Neue", sans-serif; }
+  .sE .nav { display: flex; align-items: center; gap: 22px; padding: 15px 26px; }
+  .sE .nav .logo { font-weight: 700; font-size: 15px; }
+  .sE .nav a { color: #6B6178; font-size: 13px; text-decoration: none; font-weight: 500; }
+  .sE .nav .give { margin-left: auto; background: #D97B3F; color: #fff; padding: 8px 18px; border-radius: 5px; font-weight: 600; font-size: 13px; }
+  .sE .hero { position: relative; padding: 64px 30px 54px; color: #FFF6EA; background: linear-gradient(165deg, #3A2E4F 0%, #7A4A55 48%, #D97B3F 100%); }
+  .sE .hero .tag { position: absolute; top: 12px; right: 14px; font-size: 10px; letter-spacing: 0.08em; opacity: 0.6; }
+  .sE .eyebrow { font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #F2C79B; font-weight: 600; }
+  .sE .hero h2 { font-size: 36px; font-weight: 700; line-height: 1.13; max-width: 16ch; margin: 14px 0 10px; }
+  .sE .hero p { font-size: 15.5px; opacity: 0.9; max-width: 44ch; }
+  .sE .ctas { margin-top: 24px; display: flex; gap: 12px; }
+  .sE .btnp { background: #FFF6EA; color: #2B2436; border: none; border-radius: 5px; padding: 12px 26px; font-size: 14px; font-weight: 700; }
+  .sE .btns { background: rgba(255,246,234,0.12); color: #FFF6EA; border: 1px solid rgba(255,246,234,0.5); border-radius: 5px; padding: 12px 22px; font-size: 14px; }
+  .sE .times { padding: 13px 30px; font-size: 13.5px; color: #6B6178; border-bottom: 1px solid #EDE5D8; }
+  .sE .times b { color: #2B2436; }
+  .sE .body { padding: 26px 30px 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sE .card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 3px 14px rgba(58,46,79,0.08); }
+  .sE .card .k { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #C06A33; font-weight: 700; margin-bottom: 8px; }
+  .sE .card h3 { font-size: 17px; margin-bottom: 4px; }
+  .sE .card p { font-size: 13.5px; color: #6B6178; }
+
+  /* ============ F · BEACON AT NIGHT ============ */
+  .sF { background: #101D2C; color: #EAF0F6; font-family: "Avenir Next", "Helvetica Neue", sans-serif; }
+  .sF .nav { display: flex; align-items: center; gap: 22px; padding: 15px 26px; border-bottom: 1px solid #1D3245; }
+  .sF .nav .logo { font-weight: 700; letter-spacing: 0.16em; font-size: 14px; }
+  .sF .nav .logo::before { content: "●"; color: #F2B441; margin-right: 8px; font-size: 11px; }
+  .sF .nav a { color: #8FA6BA; font-size: 13px; text-decoration: none; }
+  .sF .nav .give { margin-left: auto; background: #F2B441; color: #101D2C; padding: 8px 18px; border-radius: 4px; font-weight: 700; font-size: 13px; }
+  .sF .hero { position: relative; overflow: hidden; padding: 62px 30px 52px; }
+  .sF .hero::before { content: ""; position: absolute; top: -50%; left: 44%; width: 90%; height: 200%; background: linear-gradient(115deg, rgba(242,180,65,0) 0%, rgba(242,180,65,0.34) 45%, rgba(242,180,65,0) 78%); transform: rotate(10deg); pointer-events: none; }
+  .sF .eyebrow { color: #F2B441; font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; }
+  .sF .hero h2 { font-size: 36px; font-weight: 700; line-height: 1.13; max-width: 16ch; margin: 14px 0 10px; }
+  .sF .hero p { color: #B4C5D4; font-size: 15.5px; max-width: 46ch; }
+  .sF .ctas { margin-top: 24px; display: flex; gap: 12px; }
+  .sF .btnp { background: #F2B441; color: #101D2C; border: none; border-radius: 4px; padding: 12px 26px; font-size: 14px; font-weight: 700; }
+  .sF .btns { background: none; color: #EAF0F6; border: 1px solid #33506B; border-radius: 4px; padding: 12px 22px; font-size: 14px; }
+  .sF .times { display: flex; gap: 24px; flex-wrap: wrap; padding: 14px 30px; border-top: 1px solid #1D3245; font-size: 13px; color: #8FA6BA; }
+  .sF .times b { color: #EAF0F6; }
+  .sF .body { padding: 26px 30px 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sF .card { background: #162740; border: 1px solid #24405C; border-radius: 6px; padding: 20px; }
+  .sF .card .k { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #F2B441; font-weight: 700; margin-bottom: 8px; }
+  .sF .card h3 { font-size: 17px; margin-bottom: 4px; }
+  .sF .card p { font-size: 13.5px; color: #8FA6BA; }
+
+  /* ============ G · COASTAL EDITORIAL ============ */
+  .sG { background: #FCFBF7; color: #1F3038; font-family: "Avenir Next", sans-serif; }
+  .sG .nav { display: flex; align-items: baseline; gap: 22px; padding: 16px 26px; border-bottom: 1px solid #E8E4D8; }
+  .sG .nav .logo { font-family: Baskerville, Georgia, serif; font-size: 18px; }
+  .sG .nav a { color: #4E6570; font-size: 13px; text-decoration: none; }
+  .sG .nav .give { margin-left: auto; color: #24798A; font-weight: 600; border-bottom: 2px solid #D9A13B; padding-bottom: 2px; }
+  .sG .hero { padding: 56px 30px 46px; max-width: 660px; }
+  .sG .eyebrow { font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #24798A; font-weight: 600; }
+  .sG .hero h2 { font-family: Baskerville, Georgia, serif; font-weight: 500; font-size: 42px; line-height: 1.12; margin: 16px 0 12px; }
+  .sG .hero h2 em { color: #24798A; }
+  .sG .hero p { font-size: 16px; color: #4E6570; max-width: 46ch; line-height: 1.6; }
+  .sG .ctas { margin-top: 26px; display: flex; gap: 14px; align-items: center; }
+  .sG .btnp { background: #24798A; color: #fff; border: none; border-radius: 3px; padding: 13px 28px; font-size: 14px; font-weight: 600; }
+  .sG .btns { color: #1F3038; font-size: 14.5px; font-weight: 500; border-bottom: 2px solid #D9A13B; padding-bottom: 2px; }
+  .sG .times { padding: 14px 30px; border-top: 1px solid #E8E4D8; font-family: Baskerville, Georgia, serif; font-style: italic; font-size: 15px; color: #4E6570; }
+  .sG .body { padding: 26px 30px 38px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .sG .card { border-top: 3px solid #24798A; padding: 16px 2px 0; }
+  .sG .card.gold { border-top-color: #D9A13B; }
+  .sG .card .k { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #4E6570; font-weight: 600; margin-bottom: 8px; }
+  .sG .card h3 { font-family: Baskerville, Georgia, serif; font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+  .sG .card p { font-size: 13.5px; color: #4E6570; }
+
+  @media (min-width: 1120px) {
+    .plates { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1560px; margin: 0 auto; }
+    .plate { margin: 0; max-width: none; }
+    .sA .hero h2 { font-size: 30px; }
+    .sB h2 { font-size: 28px; }
+    .sC .hero h2, .sD .hero h2, .sE .hero h2, .sF .hero h2 { font-size: 31px; }
+    .sG .hero h2 { font-size: 34px; }
+  }
+
+  @media (max-width: 640px) {
+    .sD .body { grid-template-columns: 1fr; }
+    .sA .body, .sC .body { grid-template-columns: 1fr; }
+    .sA .hero h2 { font-size: 30px; }
+    .sA .nav { flex-wrap: wrap; gap: 12px; }
+    .sB .band { flex-wrap: wrap; gap: 10px; }
+  }
+</style>
+
+<div class="intro">
+  <h1>Beacon — design tasting, seven plates</h1>
+  <p>Same homepage content, seven visual worlds, rendered for real (system fonts stand in until we license final faces).
+  Pick one, or point at pieces — "A's hero with B's red-letter buttons" is a perfectly good answer.
+  Rick's link doesn't have this page; it's just for you until we've picked.</p>
+</div>
+
+<div class="plates">
+
+<section class="plate">
+  <div class="plate-label">
+    <b>A · The Sanctuary</b>
+    <span>burgundy, oak &amp; brass · the hymn board &amp; Bible ribbon · risk: can drift heavy</span>
+  </div>
+  <div class="board sA">
+    <div class="nav">
+      <span class="logo">Beacon Baptist</span>
+      <a class="here" href="#" onclick="return false">Visit</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missionaries</a>
+      <a class="give" href="#" onclick="return false">Give</a>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Beacon Baptist Church · Jupiter, Florida</div>
+      <h2>Your bright future begins in Jesus.</h2>
+      <div class="sub">An independent, New Testament church</div>
+      <div class="ctas">
+        <button class="btnp">Plan a Visit</button>
+        <button class="btns">Watch Live</button>
+      </div>
+    </div>
+    <div class="hymnboard">
+      <span>Sun <b>10:00</b> School</span>
+      <span>Sun <b>11:00</b> Worship</span>
+      <span>Sun <b>6:30</b> Evening</span>
+      <span>Wed <b>7:00</b> Midweek</span>
+    </div>
+    <div class="body">
+      <div>
+        <div class="plaque">Latest Sermon</div>
+        <div class="sermon">
+          <h3>A Welcome Sight</h3>
+          <div class="ref">Psalm 119:74–81 · Jim Blalock · July 5</div>
+          <div class="row">
+            <span class="play">▶ Listen</span>
+            <span>28 min</span>
+          </div>
+        </div>
+      </div>
+      <div class="aside">
+        <div class="plaque">This Week</div>
+        <p>VBS 2026 begins Monday at 9:30 — register your children this Sunday. Men's basketball Thursday, 7pm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plate">
+  <div class="plate-label">
+    <b>B · The Family Bible</b>
+    <span>ivory, green cloth &amp; gilt · KJV red-letter as the action color · risk: bookish quiet</span>
+  </div>
+  <div class="board sB">
+    <div class="band">
+      <span class="logo">Beacon Baptist Church</span>
+      <a href="#" onclick="return false">Visit</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missionaries</a>
+      <a class="give" href="#" onclick="return false">Give</a>
+    </div>
+    <div class="hero">
+      <div class="frame">
+        <div class="eyebrow">Jupiter, Florida · Est. in the Gospel</div>
+        <h2>Your bright future <span class="rl">begins in Jesus.</span></h2>
+        <div class="verse">"I am come that they might have life" <sup>John 10:10</sup></div>
+        <div class="ctas">
+          <button class="btnp">Plan a Visit</button>
+          <button class="btns">Watch Live</button>
+        </div>
+        <div class="times"><b>Sundays</b> 10 &amp; 11 am, 6:30 pm &nbsp;·&nbsp; <b>Wednesdays</b> 7 pm</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="chap">Recent Sermons</div>
+      <div class="sermon">
+        <span class="num">3062</span>
+        <h3>A Welcome Sight</h3>
+        <span class="meta">Psalm 119 · July 5</span>
+        <a href="#" onclick="return false">Listen</a>
+      </div>
+      <div class="sermon">
+        <span class="num">3061</span>
+        <h3>A Notable Nobody</h3>
+        <span class="meta">Acts 19 · July 5</span>
+        <a href="#" onclick="return false">Listen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plate">
+  <div class="plate-label">
+    <b>C · Play It Straight</b>
+    <span>the proven modern church-site pattern, executed cleanly · risk: looks like everyone</span>
+  </div>
+  <div class="board sC">
+    <div class="nav">
+      <span class="logo">BEACON</span>
+      <a href="#" onclick="return false">About</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missions</a>
+      <span class="give">Give</span>
+    </div>
+    <div class="hero">
+      <span class="tag">congregation photo</span>
+      <h2>Your bright future begins in Jesus.</h2>
+      <p>Join us this Sunday — 10am Sunday School, 11am Worship.</p>
+      <button class="btnp">Plan a Visit</button>
+      <button class="btns">Watch Live</button>
+    </div>
+    <div class="strip">Sundays 10am · 11am · 6:30pm &nbsp;|&nbsp; Wednesdays 7pm &nbsp;|&nbsp; 11616 Indiantown Rd, Jupiter</div>
+    <div class="body">
+      <div class="card">
+        <div class="k">Latest Sermon</div>
+        <h3>A Welcome Sight</h3>
+        <p>Psalm 119:74–81 · Jim Blalock</p>
+        <span class="link">Listen now →</span>
+      </div>
+      <div class="card">
+        <div class="k">This Week</div>
+        <h3>VBS 2026</h3>
+        <p>July 13–17 · 9:30am–12:30pm</p>
+        <span class="link">Register →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plate">
+  <div class="plate-label">
+    <b>D · Coastal Light</b>
+    <span>sea-white, gulf teal &amp; sun gold · the beam, current-day · risk: reads "beachy" if loose</span>
+  </div>
+  <div class="board sD">
+    <div class="nav">
+      <span class="logo">BEACON</span>
+      <a href="#" onclick="return false">Visit</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missionaries</a>
+      <span class="give">Give</span>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Beacon Baptist Church · Jupiter, FL</div>
+      <h2>Your bright future begins in <em>Jesus.</em></h2>
+      <p>An independent, New Testament church by the Jupiter Inlet — come as you are this Sunday.</p>
+      <div class="ctas">
+        <button class="btnp">Plan a Visit</button>
+        <button class="btns">Watch Live</button>
+      </div>
+    </div>
+    <div class="times">
+      <span><i>●</i><b>Sun</b> 10am School</span>
+      <span><i>●</i><b>Sun</b> 11am Worship</span>
+      <span><i>●</i><b>Sun</b> 6:30pm Evening</span>
+      <span><i>●</i><b>Wed</b> 7pm Midweek</span>
+    </div>
+    <div class="body">
+      <div class="card">
+        <div class="k">Latest Sermon</div>
+        <h3>A Welcome Sight</h3>
+        <p>Psalm 119:74–81 · Jim Blalock</p>
+        <span class="link">Listen now →</span>
+      </div>
+      <div class="card">
+        <div class="k">This Week</div>
+        <h3>VBS 2026</h3>
+        <p>July 13–17 · 9:30am–12:30pm</p>
+        <span class="link">Register →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plate">
+  <div class="plate-label">
+    <b>E · Golden Hour</b>
+    <span>dusk plum → sunset gold · photographic warmth, real depth · risk: moody for a church?</span>
+  </div>
+  <div class="board sE">
+    <div class="nav">
+      <span class="logo">Beacon Baptist</span>
+      <a href="#" onclick="return false">Visit</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missionaries</a>
+      <span class="give">Give</span>
+    </div>
+    <div class="hero">
+      <span class="tag">golden-hour congregation photo blends into this gradient</span>
+      <div class="eyebrow">Beacon Baptist Church · Jupiter, FL</div>
+      <h2>Your bright future begins in Jesus.</h2>
+      <p>Sunday evening light over the Jupiter Inlet — and a church family waiting to meet you.</p>
+      <div class="ctas">
+        <button class="btnp">Plan a Visit</button>
+        <button class="btns">Watch Live</button>
+      </div>
+    </div>
+    <div class="times"><b>Sundays</b> 10am · 11am · 6:30pm &nbsp;·&nbsp; <b>Wednesdays</b> 7pm + Kid's Club 6:45</div>
+    <div class="body">
+      <div class="card">
+        <div class="k">Latest Sermon</div>
+        <h3>A Welcome Sight</h3>
+        <p>Psalm 119:74–81 · Jim Blalock</p>
+      </div>
+      <div class="card">
+        <div class="k">This Week</div>
+        <h3>VBS 2026</h3>
+        <p>July 13–17 · 9:30am–12:30pm</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plate">
+  <div class="plate-label">
+    <b>F · Beacon at Night</b>
+    <span>deep navy, the gold beam cutting through · "light shines in darkness" · risk: dark = somber to some</span>
+  </div>
+  <div class="board sF">
+    <div class="nav">
+      <span class="logo">BEACON</span>
+      <a href="#" onclick="return false">Visit</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missionaries</a>
+      <span class="give">Give</span>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Jupiter, Florida</div>
+      <h2>Your bright future begins in Jesus.</h2>
+      <p>The light shineth in darkness — and there's a lighthouse on our name for a reason.</p>
+      <div class="ctas">
+        <button class="btnp">Plan a Visit</button>
+        <button class="btns">Watch Live</button>
+      </div>
+    </div>
+    <div class="times">
+      <span><b>Sun</b> 10am · 11am · 6:30pm</span>
+      <span><b>Wed</b> 7pm · Kid's Club 6:45</span>
+      <span>11616 Indiantown Rd</span>
+    </div>
+    <div class="body">
+      <div class="card">
+        <div class="k">Latest Sermon</div>
+        <h3>A Welcome Sight</h3>
+        <p>Psalm 119:74–81 · Jim Blalock</p>
+      </div>
+      <div class="card">
+        <div class="k">This Week</div>
+        <h3>VBS 2026</h3>
+        <p>July 13–17 · 9:30am–12:30pm</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plate">
+  <div class="plate-label">
+    <b>G · Coastal Editorial</b>
+    <span>D's palette + a serif voice · airy but weighty · risk: quietest of the modern three</span>
+  </div>
+  <div class="board sG">
+    <div class="nav">
+      <span class="logo">Beacon Baptist</span>
+      <a href="#" onclick="return false">Visit</a>
+      <a href="#" onclick="return false">Sermons</a>
+      <a href="#" onclick="return false">Events</a>
+      <a href="#" onclick="return false">Missionaries</a>
+      <a class="give" href="#" onclick="return false">Give</a>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Beacon Baptist Church · Jupiter, Florida</div>
+      <h2>Your bright future begins in <em>Jesus.</em></h2>
+      <p>An independent, New Testament church by the Jupiter Inlet. Come as you are —
+      we'd love to save you a seat this Sunday.</p>
+      <div class="ctas">
+        <button class="btnp">Plan a Visit</button>
+        <span class="btns">Watch Live</span>
+      </div>
+    </div>
+    <div class="times">Sundays at 10 &amp; 11 in the morning and 6:30 in the evening · Wednesdays at 7</div>
+    <div class="body">
+      <div class="card">
+        <div class="k">Latest Sermon</div>
+        <h3>A Welcome Sight</h3>
+        <p>Psalm 119:74–81 · Jim Blalock · July 5</p>
+      </div>
+      <div class="card gold">
+        <div class="k">This Week</div>
+        <h3>VBS 2026</h3>
+        <p>July 13–17 · 9:30am–12:30pm · Register by Sunday</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
